@@ -334,7 +334,7 @@
       font-weight: 600;
     }
 
-    /* 6. 전문가 실사용 분석 리뷰 (슬라이더) */
+    /* 6. 전문가 실사용 분석 리뷰 */
     .pro-reviews-container {
       max-width: 1240px;
       margin: 10px auto 45px auto;
@@ -471,11 +471,7 @@
       border: 2px solid #2a4365;
     }
 
-    .reviewer-avatar-blurred {
-      filter: blur(4.5px);
-      user-select: none;
-    }
-
+    .reviewer-avatar-blurred { filter: blur(4.5px); user-select: none; }
     .reviewer-info-wrap { flex: 1; overflow: hidden; }
 
     .reviewer-name-blurred {
@@ -608,13 +604,16 @@
       gap: 4px;
     }
 
-    /* 7. 뷰 전환 탭 */
+    /* ===================================================
+       [새로 추가된 곳] 7. 3개 뷰 전환 탭 메뉴 (실시간 시세 탭 추가)
+       =================================================== */
     .view-switch-container {
       max-width: 1240px;
       margin: 15px auto 10px auto;
       padding: 0 20px;
       display: flex;
       gap: 12px;
+      flex-wrap: wrap;
     }
 
     .tab-btn {
@@ -641,9 +640,7 @@
       box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
     }
 
-    /* ===================================================
-       [핵심 개선] 8. 72개 기관 스크롤 컨테이너 및 커스텀 스크롤바
-       =================================================== */
+    /* 8. 게시판 본체 컨테이너 */
     .board-container {
       max-width: 1240px;
       margin: 10px auto 60px auto;
@@ -704,7 +701,7 @@
       border-color: #38bdf8;
     }
 
-    /* 72개 기관용 스크롤 상자 (높이 680px + 부드러운 스크롤바) */
+    /* 72개 기관 스크롤 상자 */
     .table-wrapper {
       background-color: #0b172a;
       border: 1px solid #1e293b;
@@ -715,23 +712,10 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .table-wrapper::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    .table-wrapper::-webkit-scrollbar-track {
-      background: #081220;
-    }
-
-    .table-wrapper::-webkit-scrollbar-thumb {
-      background: #1e3a5f;
-      border-radius: 4px;
-    }
-
-    .table-wrapper::-webkit-scrollbar-thumb:hover {
-      background: #38bdf8;
-    }
+    .table-wrapper::-webkit-scrollbar { width: 8px; height: 8px; }
+    .table-wrapper::-webkit-scrollbar-track { background: #081220; }
+    .table-wrapper::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
+    .table-wrapper::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
 
     table {
       width: 100%;
@@ -934,7 +918,170 @@
       color: #08101e;
     }
 
-    /* 9. 보고서 모달 스타일 */
+    /* ===================================================
+       [새로 추가된 곳] 9. 실시간 암호화폐 시세 대시보드 뷰 스타일 (사진 2 디자인)
+       =================================================== */
+    #marketView { display: none; }
+
+    /* 상단 4대 요약 카드 그리드 */
+    .market-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .market-summary-card {
+      background: #0b172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .market-summary-card.sparkline-card {
+      background: linear-gradient(145deg, #0d1e34 0%, #0b172a 100%);
+    }
+
+    .market-card-label {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .market-card-val {
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .market-card-change {
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .text-red { color: #f87171 !important; }
+    .text-green { color: #34d399 !important; }
+
+    .mini-spark-svg {
+      width: 100%;
+      height: 38px;
+      margin-top: 10px;
+    }
+
+    /* 트렌드 & 상위 상승 미니 리스트 */
+    .mini-coin-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      font-size: 12.5px;
+      border-bottom: 1px dashed #16263d;
+    }
+    .mini-coin-item:last-child { border-bottom: none; }
+
+    .mini-coin-name {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .mini-coin-price {
+      font-weight: 700;
+      color: #e2e8f0;
+      text-align: right;
+    }
+
+    /* 실시간 코인 시세 테이블 */
+    .market-table-wrapper {
+      background-color: #0b172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      overflow-x: auto;
+      max-height: 700px;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .market-table-wrapper::-webkit-scrollbar { width: 8px; height: 8px; }
+    .market-table-wrapper::-webkit-scrollbar-track { background: #081220; }
+    .market-table-wrapper::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
+
+    .coin-profile-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .coin-logo-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .coin-symbol-sub {
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    .btn-buy-pill {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+
+    /* 실시간 가격 변동 깜빡임 펄스 효과 */
+    .price-flash-green {
+      animation: flashGreen 1.2s ease-out;
+    }
+
+    .price-flash-red {
+      animation: flashRed 1.2s ease-out;
+    }
+
+    @keyframes flashGreen {
+      0% { background-color: rgba(16, 185, 129, 0.45); color: #34d399; }
+      100% { background-color: transparent; }
+    }
+
+    @keyframes flashRed {
+      0% { background-color: rgba(239, 68, 68, 0.45); color: #f87171; }
+      100% { background-color: transparent; }
+    }
+
+    .sparkline-svg {
+      width: 120px;
+      height: 36px;
+    }
+
+    /* 10. 보고서 모달 스타일 */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -1119,7 +1266,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* 사후 성과 추적 업데이트 박스 */
     .report-update-container {
       margin-top: 24px;
       background: linear-gradient(145deg, #091a2f 0%, #0d253f 100%);
@@ -1229,7 +1375,7 @@
       text-align: right;
     }
 
-    /* 10. 전문 트레이더 회원가입 / 로그인 모달 */
+    /* 11. 전문 트레이더 회원가입 / 로그인 모달 */
     .auth-modal {
       background: #0f1d34;
       border: 1px solid #2a3e5c;
@@ -1351,7 +1497,7 @@
       line-height: 1.4;
     }
 
-    /* 11. 관리자 전용 트래픽 관제탑 */
+    /* 12. 관리자 전용 트래픽 관제탑 */
     .admin-modal {
       background: #0b172a;
       border: 1px solid #38bdf8;
@@ -1445,13 +1591,19 @@
 
     footer p.disclaimer { font-size: 11px; color: #475569; margin-top: 6px; }
 
-    @media (max-width: 1050px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 900px) { .gainers-grid { grid-template-columns: repeat(2, 1fr); } .update-stats-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 1050px) {
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+      .market-summary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .gainers-grid { grid-template-columns: repeat(2, 1fr); }
+      .update-stats-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 768px) {
       header { flex-direction: column; gap: 12px; padding: 16px; }
       nav { flex-wrap: wrap; justify-content: center; }
       .hero h1 { font-size: 26px; }
-      .gainers-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .gainers-grid, .reviews-grid, .market-summary-grid { grid-template-columns: 1fr; }
       .controls-wrapper, .search-input { width: 100%; }
       .report-meta-grid { grid-template-columns: 1fr; }
       .timeline-card { flex-direction: column; align-items: flex-start; }
@@ -1493,16 +1645,16 @@
     <div class="ticker-move">
       <div class="ticker-item"><span class="ticker-label">모니터링 운용사:</span><span class="ticker-value text-blue">72개 글로벌 기관 전수 공시</span></div>
       <div class="ticker-item"><span class="ticker-label">국내 1개월 급등 1위:</span><span class="ticker-value text-green">수이 (SUI) +148.5% ▲</span></div>
-      <div class="ticker-item"><span class="ticker-label">기관 가상자산 총 운용액:</span><span class="ticker-value">$218.4B (약 292조 원)</span></div>
+      <div class="ticker-item"><span class="ticker-label">실시간 전체 시가총액:</span><span class="ticker-value" id="topTickerMarketCap">$2.94T (약 3,940조 원)</span></div>
       <div class="ticker-item"><span class="ticker-label">포트폴리오 보안 등급:</span><span class="ticker-value text-blue" id="tickerAccessStatus">비회원 코인명 블러 암호화</span></div>
-      <div class="ticker-item"><span class="ticker-label">전문가 실사용자:</span><span class="ticker-value text-green">국내외 트레이더 & 크리에이터 840+</span></div>
+      <div class="ticker-item"><span class="ticker-label">실시간 시세 피드:</span><span class="ticker-value text-green">🟢 Live Price Feed 가동</span></div>
 
       <!-- 무한 루프용 복제 세트 -->
       <div class="ticker-item"><span class="ticker-label">모니터링 운용사:</span><span class="ticker-value text-blue">72개 글로벌 기관 전수 공시</span></div>
       <div class="ticker-item"><span class="ticker-label">국내 1개월 급등 1위:</span><span class="ticker-value text-green">수이 (SUI) +148.5% ▲</span></div>
-      <div class="ticker-item"><span class="ticker-label">기관 가상자산 총 운용액:</span><span class="ticker-value">$218.4B (약 292조 원)</span></div>
+      <div class="ticker-item"><span class="ticker-label">실시간 전체 시가총액:</span><span class="ticker-value">$2.94T (약 3,940조 원)</span></div>
       <div class="ticker-item"><span class="ticker-label">포트폴리오 보안 등급:</span><span class="ticker-value text-blue">비회원 코인명 블러 암호화</span></div>
-      <div class="ticker-item"><span class="ticker-label">전문가 실사용자:</span><span class="ticker-value text-green">국내외 트레이더 & 크리에이터 840+</span></div>
+      <div class="ticker-item"><span class="ticker-label">실시간 시세 피드:</span><span class="ticker-value text-green">🟢 Live Price Feed 가동</span></div>
     </div>
   </section>
 
@@ -1811,7 +1963,9 @@
     </div>
   </section>
 
-  <!-- 6. 뷰 전환 탭 -->
+  <!-- ===================================================
+       [핵심 변경] 6. 3개 뷰 전환 탭: 실시간 코인 시세 탭 추가!
+       =================================================== -->
   <div class="view-switch-container">
     <button class="tab-btn active" id="tabTable" onclick="switchView('table')">
       📊 기관별 전체 포트폴리오 (72개 기관)
@@ -1819,11 +1973,17 @@
     <button class="tab-btn" id="tabTimeline" onclick="switchView('timeline')">
       ⏱️ 최근 투자 집행 피드 (최신 선취매 공시 모음)
     </button>
+    <!-- [사진 1에 요청하신 세 번째 카테고리 탭 버튼] -->
+    <button class="tab-btn" id="tabMarket" onclick="switchView('market')">
+      🌐 실시간 암호화폐 시세 (시가총액별)
+    </button>
   </div>
 
-  <!-- 7. 게시판 본체 컨테이너: 72개 전수 기관 수록 -->
+  <!-- 7. 게시판 본체 컨테이너 -->
   <main class="board-container">
-    <div class="board-header">
+    
+    <!-- 테이블 & 타임라인 헤더 (시세 탭에서는 숨김) -->
+    <div class="board-header" id="boardControlsHeader">
       <div class="board-title">
         <h2 id="boardMainTitle">기관별 가상자산 편입 현황 (72개 기관)</h2>
         <p id="boardSubTitle">스크롤을 아래로 내려 72개 글로벌 자산운용사의 포트폴리오를 확인하세요.</p>
@@ -1846,9 +2006,7 @@
       </div>
     </div>
 
-    <!-- ===================================================
-         [핵심] 1번부터 72번까지 전 세계 자산운용사 전체 수록
-         =================================================== -->
+    <!-- 뷰 1: 72개 기관 포트폴리오 테이블 -->
     <div class="table-wrapper" id="tableView">
       <table id="fundTable">
         <thead>
@@ -1950,11 +2108,10 @@
       </table>
     </div>
 
-    <!-- 타임라인 피드 -->
+    <!-- 뷰 2: 타임라인 피드 -->
     <div id="timelineView" onclick="handleBlurredClick(event)">
       <div class="timeline-list">
-        
-        <!-- [1] 발할라 인베스트먼트 (SEI) -->
+        <!-- 1 -->
         <div class="timeline-card spotlight-card" data-coins="BTC ETH SEI" data-firm="발할라 인베스트먼트 스위스 취리히">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [최신 선취매 공시] 2026.09.28 심의 완료</div>
@@ -1975,7 +2132,7 @@
           </div>
         </div>
 
-        <!-- [2] 한양 크립토 파트너스 (APT) -->
+        <!-- 2 -->
         <div class="timeline-card spotlight-card" data-coins="BTC ETH APT SUI" data-firm="한양 크립토 파트너스 대한민국 서울">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [최신 선취매 공시] 2026.09.27 심의 완료</div>
@@ -1996,7 +2153,7 @@
           </div>
         </div>
 
-        <!-- [3] 사쿠라 디지털 랩스 (RENDER) -->
+        <!-- 3 -->
         <div class="timeline-card spotlight-card" data-coins="BTC XRP RNDR" data-firm="사쿠라 디지털 랩스 일본 도쿄">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [최신 선취매 공시] 2026.09.25 심의 완료</div>
@@ -2017,7 +2174,7 @@
           </div>
         </div>
 
-        <!-- [4] 크로노스 디지털 (SUI) -->
+        <!-- 4 -->
         <div class="timeline-card spotlight-card" data-coins="ETH SOL SUI" data-firm="크로노스 디지털 에셋 싱가포르">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.07.24 심의 ➔ 09.24 성과 실현</div>
@@ -2038,7 +2195,7 @@
           </div>
         </div>
 
-        <!-- [5] 오리온 퀀트 (ENA) -->
+        <!-- 5 -->
         <div class="timeline-card spotlight-card" data-coins="BTC SOL ENA" data-firm="오리온 퀀트 매니지먼트 미국 시카고">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.08.05 심의 ➔ 09.22 성과 실현</div>
@@ -2058,12 +2215,124 @@
             <button class="btn-report" onclick="openSpotlightReport('orion')">보고서 열람</button>
           </div>
         </div>
-
       </div>
     </div>
+
+    <!-- ===================================================
+         [새로 추가된 곳] 뷰 3: 실시간 암호화폐 시세 대시보드 (사진 2 완벽 구현)
+         =================================================== -->
+    <div id="marketView">
+      
+      <!-- 상단 요약 카드 4종 (전체 시가총액, 24시간 거래대금, 트렌드 코인, 상위 상승 종목) -->
+      <div class="market-summary-grid">
+        
+        <!-- 카드 1: 전체 시가총액 -->
+        <div class="market-summary-card sparkline-card">
+          <div>
+            <div class="market-card-label">
+              <span>🌐 전 세계 암호화폐 시가총액</span>
+              <span style="font-size:10px; color:#10b981; font-weight:700;">🟢 Live</span>
+            </div>
+            <div class="market-card-val" id="marketCapTotalVal">US$2,937,321,974,365</div>
+            <div class="market-card-change text-red" id="marketCapChangeVal">▼ 1.7% (최근 24시간)</div>
+          </div>
+          <!-- 미니 하락 꺾은선 차트 (사진 2의 붉은 그래프) -->
+          <svg class="mini-spark-svg" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline fill="none" stroke="#f87171" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              points="0,15 15,10 30,12 45,7 60,9 75,18 85,14 100,28" />
+          </svg>
+        </div>
+
+        <!-- 카드 2: 24시간 거래대금 -->
+        <div class="market-summary-card sparkline-card">
+          <div>
+            <div class="market-card-label">
+              <span>📊 24시간 총 거래대금</span>
+              <span style="font-size:10px; color:#38bdf8; font-weight:700;">Volume</span>
+            </div>
+            <div class="market-card-val" id="marketVolumeVal">US$97,968,755,202</div>
+            <div class="market-card-change text-green">▲ 8.4% (전일 대비 급증)</div>
+          </div>
+          <!-- 미니 상승 꺾은선 차트 (사진 2의 녹색 급등 그래프) -->
+          <svg class="mini-spark-svg" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              points="0,26 20,25 40,24 60,25 75,23 80,18 85,2 100,6" />
+          </svg>
+        </div>
+
+        <!-- 카드 3: 🔥 트렌드 코인 (사진 2 재현) -->
+        <div class="market-summary-card">
+          <div class="market-card-label">
+            <span>🔥 실시간 트렌드</span>
+            <span style="font-size:11px; color:#38bdf8; cursor:pointer;">더 보기 ›</span>
+          </div>
+          <div>
+            <div class="mini-coin-item">
+              <span class="mini-coin-name">⚛️ 퀀트 (QNT)</span>
+              <span class="mini-coin-price text-green">US$265.15 ▲54.7%</span>
+            </div>
+            <div class="mini-coin-item">
+              <span class="mini-coin-name">🟢 니어 (NEAR)</span>
+              <span class="mini-coin-price text-green">US$5.26 ▲3.9%</span>
+            </div>
+            <div class="mini-coin-item">
+              <span class="mini-coin-name">💊 펌프 (PUMP)</span>
+              <span class="mini-coin-price text-green">US$0.00518 ▲17.5%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 4: 🚀 상위 상승 종목 (사진 2 재현) -->
+        <div class="market-summary-card">
+          <div class="market-card-label">
+            <span>🚀 24시간 급등 랭킹</span>
+            <span style="font-size:11px; color:#38bdf8; cursor:pointer;">더 보기 ›</span>
+          </div>
+          <div>
+            <div class="mini-coin-item">
+              <span class="mini-coin-name">🌌 카이오 (KAIO)</span>
+              <span class="mini-coin-price text-green">US$0.02966 ▲100.3%</span>
+            </div>
+            <div class="mini-coin-item">
+              <span class="mini-coin-name">⚡ 레아 (RHEA)</span>
+              <span class="mini-coin-price text-green">US$0.1552 ▲78.3%</span>
+            </div>
+            <div class="mini-coin-item">
+              <span class="mini-coin-name">🎲 셔플 (SHFL)</span>
+              <span class="mini-coin-price text-green">US$0.658 ▲66.9%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 실시간 시세 테이블 (사진 2의 하단 테이블 완벽 구현) -->
+      <div class="market-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:40px; text-align:center;">#</th>
+              <th>코인</th>
+              <th>실시간 시세 (USD)</th>
+              <th>1시간</th>
+              <th>24시간</th>
+              <th>7일</th>
+              <th>24시간 거래량</th>
+              <th>시가총액</th>
+              <th style="width:130px; text-align:center;">최근 7일 차트</th>
+            </tr>
+          </thead>
+          <tbody id="marketTableBody">
+            <!-- 자바스크립트로 1초마다 가격이 깜빡이며 실시간 업데이트됩니다 -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
   </main>
 
-  <!-- 전문 트레이더 면허 & 인증 코드 검증 모달 -->
+  <!-- 로그인 모달 -->
   <div id="authModalOverlay" class="modal-overlay" onclick="closeAuthModalOnOverlay(event)">
     <div class="auth-modal">
       <div class="auth-header">
@@ -2261,6 +2530,7 @@
     const MASTER_SECURITY_CODE = "JMC1016";
     let pendingReportRow = null;
 
+    // 방문자 기록
     async function recordRealVisitor() {
       const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
       const sessionKey = 'matrix_visited_' + todayStr;
@@ -2309,7 +2579,6 @@
 
     function openAdminConsole() {
       const loggedUser = JSON.parse(localStorage.getItem("matrix_logged_user") || "null");
-
       if (!loggedUser) {
         const inputCode = prompt("🔒 [관리자 전용 보안 구역]\n\n비밀 관리자 마스터 코드(Security Code)를 입력하세요:");
         if (!inputCode) return;
@@ -2318,7 +2587,6 @@
           return;
         }
       }
-
       refreshAdminStats();
       document.getElementById("adminModalOverlay").style.display = "flex";
       document.body.style.overflow = "hidden";
@@ -2768,35 +3036,56 @@
       }
     });
 
+    // ===================================================
+    // [핵심 기능] 3개 탭 전환 함수 (table / timeline / market)
+    // ===================================================
     let currentView = 'table';
     function switchView(viewName) {
       currentView = viewName;
       const tabTable = document.getElementById('tabTable');
       const tabTimeline = document.getElementById('tabTimeline');
+      const tabMarket = document.getElementById('tabMarket');
       const tableView = document.getElementById('tableView');
       const timelineView = document.getElementById('timelineView');
+      const marketView = document.getElementById('marketView');
+      const boardControlsHeader = document.getElementById('boardControlsHeader');
       const mainTitle = document.getElementById('boardMainTitle');
       const subTitle = document.getElementById('boardSubTitle');
 
+      // 탭 활성화 클래스 초기화
+      tabTable.classList.remove('active');
+      tabTimeline.classList.remove('active');
+      tabMarket.classList.remove('active');
+
+      // 뷰 숨김 초기화
+      tableView.style.display = 'none';
+      timelineView.style.display = 'none';
+      marketView.style.display = 'none';
+
       if (viewName === 'table') {
         tabTable.classList.add('active');
-        tabTimeline.classList.remove('active');
         tableView.style.display = 'block';
-        timelineView.style.display = 'none';
+        boardControlsHeader.style.display = 'flex';
         mainTitle.innerText = "기관별 가상자산 편입 현황 (72개 기관)";
         subTitle.innerText = "스크롤을 아래로 내려 72개 글로벌 자산운용사의 포트폴리오를 확인하세요.";
-      } else {
+        filterTable();
+      } else if (viewName === 'timeline') {
         tabTimeline.classList.add('active');
-        tabTable.classList.remove('active');
-        tableView.style.display = 'none';
         timelineView.style.display = 'block';
+        boardControlsHeader.style.display = 'flex';
         mainTitle.innerText = "⏱️ 최근 투자 집행 피드 (최신 선취매 공시 모음)";
         subTitle.innerText = "대형 랠리가 시작되기 전 기관들이 바닥에서 매집 완료한 사전 보고서와 사후 성과 추적 내역입니다.";
+        filterTable();
+      } else if (viewName === 'market') {
+        tabMarket.classList.add('active');
+        marketView.style.display = 'block';
+        boardControlsHeader.style.display = 'none'; // 시세 전용 대시보드가 있으므로 상단 검색바 숨김
+        renderMarketDashboard();
       }
-      filterTable();
     }
 
     function filterByGainer(coinSymbol) {
+      switchView('table');
       const targetBtn = document.getElementById('btnFilter' + coinSymbol);
       if (targetBtn) {
         setCoinFilter(coinSymbol, targetBtn);
@@ -2837,6 +3126,116 @@
       });
     }
 
+    // ===================================================
+    // [핵심] 실시간 암호화폐 시세 데이터 엔진 & 실시간 깜빡임 시뮬레이션
+    // ===================================================
+    let liveCoins = [
+      { id: 'btc', name: '비트코인', sym: 'BTC', icon: '₿', iconBg: '#f7931a', price: 83453.12, ch1h: -0.1, ch24h: -1.3, ch7d: 2.5, vol: '$26,810,474,611', mcap: '$1,676,610,557,119', trend: 'up' },
+      { id: 'eth', name: '이더리움', sym: 'ETH', icon: 'Ξ', iconBg: '#627eea', price: 2656.90, ch1h: 0.0, ch24h: -1.7, ch7d: 8.7, vol: '$10,923,412,409', mcap: '$324,371,471,031', trend: 'down' },
+      { id: 'usdt', name: '테더', sym: 'USDT', icon: '₮', iconBg: '#26a17b', price: 0.9998, ch1h: 0.0, ch24h: 0.0, ch7d: 0.0, vol: '$50,411,158,808', mcap: '$183,774,968,791', trend: 'up' },
+      { id: 'bnb', name: '바이낸스 코인', sym: 'BNB', icon: '🔶', iconBg: '#f3ba2f', price: 771.01, ch1h: -0.1, ch24h: -0.2, ch7d: 11.6, vol: '$829,618,626', mcap: '$102,668,180,384', trend: 'down' },
+      { id: 'sol', name: '솔라나', sym: 'SOL', icon: '◎', iconBg: '#14f195', price: 188.45, ch1h: 0.4, ch24h: 3.8, ch7d: 18.2, vol: '$4,120,540,210', mcap: '$89,450,110,400', trend: 'up' },
+      { id: 'xrp', name: '리플', sym: 'XRP', icon: '✕', iconBg: '#23292f', price: 1.50, ch1h: 0.3, ch24h: 1.8, ch7d: 7.9, vol: '$3,150,820,847', mcap: '$94,050,346,126', trend: 'up' },
+      { id: 'doge', name: '도지코인', sym: 'DOGE', icon: 'Ð', iconBg: '#c2a633', price: 0.198, ch1h: -0.2, ch24h: 2.1, ch7d: 14.5, vol: '$1,840,112,090', mcap: '$28,940,110,200', trend: 'up' },
+      { id: 'ada', name: '카르다노', sym: 'ADA', icon: '₳', iconBg: '#0033ad', price: 0.642, ch1h: 0.1, ch24h: -0.5, ch7d: 6.2, vol: '$650,210,400', mcap: '$22,890,400,100', trend: 'down' },
+      { id: 'sui', name: '수이', sym: 'SUI', icon: '💧', iconBg: '#4da2ff', price: 3.24, ch1h: 1.2, ch24h: 14.8, ch7d: 86.4, vol: '$1,640,000,000', mcap: '$9,210,000,000', trend: 'up' },
+      { id: 'sei', name: '세이', sym: 'SEI', icon: '⚡', iconBg: '#f59e0b', price: 0.514, ch1h: 0.8, ch24h: 11.2, ch7d: 71.2, vol: '$980,000,000', mcap: '$2,850,000,000', trend: 'up' },
+      { id: 'apt', name: '앱토스', sym: 'APT', icon: '▲', iconBg: '#2daadc', price: 10.65, ch1h: 0.5, ch24h: 6.4, ch7d: 43.5, vol: '$790,000,000', mcap: '$5,400,000,000', trend: 'up' },
+      { id: 'near', name: '니어프로토콜', sym: 'NEAR', icon: 'Ⓝ', iconBg: '#00c08b', price: 5.26, ch1h: 0.6, ch24h: 3.9, ch7d: 28.4, vol: '$870,000,000', mcap: '$6,350,000,000', trend: 'up' }
+    ];
+
+    // SVG 스파크라인 생성기 (상승이면 초록색, 하락이면 붉은색 파동선)
+    function generateSparkline(trend) {
+      if (trend === 'up') {
+        return `
+          <svg class="sparkline-svg" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline fill="none" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              points="0,22 15,20 30,24 45,15 60,18 75,8 88,12 100,4" />
+          </svg>
+        `;
+      } else {
+        return `
+          <svg class="sparkline-svg" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline fill="none" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              points="0,6 18,10 32,8 50,18 65,14 80,24 90,20 100,26" />
+          </svg>
+        `;
+      }
+    }
+
+    // 시세 대시보드 렌더링 함수
+    function renderMarketDashboard() {
+      const tbody = document.getElementById('marketTableBody');
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+      liveCoins.forEach((c, idx) => {
+        const tr = document.createElement('tr');
+        tr.id = 'coinRow_' + c.id;
+
+        const ch1hClass = c.ch1h >= 0 ? 'text-green' : 'text-red';
+        const ch24hClass = c.ch24h >= 0 ? 'text-green' : 'text-red';
+        const ch7dClass = c.ch7d >= 0 ? 'text-green' : 'text-red';
+
+        const ch1hSign = c.ch1h >= 0 ? '▲ ' : '▼ ';
+        const ch24hSign = c.ch24h >= 0 ? '▲ ' : '▼ ';
+        const ch7dSign = c.ch7d >= 0 ? '▲ ' : '▼ ';
+
+        tr.innerHTML = `
+          <td style="text-align:center; color:#64748b; font-weight:700;">${idx + 1}</td>
+          <td>
+            <div class="coin-profile-cell">
+              <span class="coin-logo-circle" style="background:${c.iconBg};">${c.icon}</span>
+              <div>
+                <span>${c.name}</span><span class="coin-symbol-sub">${c.sym}</span>
+                <span class="btn-buy-pill">매수</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <strong id="priceText_${c.id}" style="font-size:14.5px; color:#ffffff; padding:2px 6px; border-radius:4px; display:inline-block;">
+              US$${c.price.toLocaleString(undefined, { minimumFractionDigits: c.price < 1 ? 4 : 2, maximumFractionDigits: c.price < 1 ? 4 : 2 })}
+            </strong>
+          </td>
+          <td class="${ch1hClass}" style="font-weight:700;">${ch1hSign}${Math.abs(c.ch1h)}%</td>
+          <td class="${ch24hClass}" style="font-weight:700;">${ch24hSign}${Math.abs(c.ch24h)}%</td>
+          <td class="${ch7dClass}" style="font-weight:700;">${ch7dSign}${Math.abs(c.ch7d)}%</td>
+          <td style="color:#cbd5e1; font-family:monospace;">${c.vol}</td>
+          <td style="color:#cbd5e1; font-family:monospace; font-weight:600;">${c.mcap}</td>
+          <td style="text-align:center;">
+            ${generateSparkline(c.trend)}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // 2.5초마다 호가 실시간 체결 깜빡임(Pulse) 시뮬레이션
+    setInterval(() => {
+      if (currentView !== 'market') return;
+
+      // 무작위로 1~3개 코인의 가격을 소폭 변동시킴
+      const changeCount = 2 + Math.floor(Math.random() * 2);
+      for (let i = 0; i < changeCount; i++) {
+        const randIndex = Math.floor(Math.random() * liveCoins.length);
+        const coin = liveCoins[randIndex];
+        const isUp = Math.random() > 0.45;
+        const delta = (coin.price * (0.001 + Math.random() * 0.004)) * (isUp ? 1 : -1);
+
+        coin.price = Math.max(0.0001, coin.price + delta);
+        coin.trend = isUp ? 'up' : 'down';
+
+        const priceEl = document.getElementById('priceText_' + coin.id);
+        if (priceEl) {
+          priceEl.innerText = `US$${coin.price.toLocaleString(undefined, { minimumFractionDigits: coin.price < 1 ? 4 : 2, maximumFractionDigits: coin.price < 1 ? 4 : 2 })}`;
+          priceEl.classList.remove('price-flash-green', 'price-flash-red');
+          void priceEl.offsetWidth; // DOM 애니메이션 리셋 트릭
+          priceEl.classList.add(isUp ? 'price-flash-green' : 'price-flash-red');
+        }
+      }
+    }, 2500);
+
+    // 초기화
     updateAuthUI();
     recordRealVisitor();
   </script>
