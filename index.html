@@ -689,22 +689,29 @@
 
     .firm-location { font-size: 12px; color: #64748b; }
 
-    /* 비로그인 시 코인명 & 비중 블러 처리 */
+    /* ===================================================
+       [핵심 개선] 비로그인 시 코인명 & 가격대 모자이크 블러
+       =================================================== */
     body:not(.is-logged-in) #fundTable td:nth-child(3),
     body:not(.is-logged-in) #fundTable td:nth-child(4),
     body:not(.is-logged-in) .timeline-meta-tags .coin-badge,
     body:not(.is-logged-in) .blur-target {
-      filter: blur(6.5px);
-      user-select: none;
-      -webkit-user-select: none;
-      cursor: pointer;
+      filter: blur(5.5px) !important;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      cursor: pointer !important;
+      background: rgba(56, 189, 248, 0.15);
+      border-radius: 4px;
+      padding: 0 4px;
+      display: inline-block;
       transition: filter 0.2s ease;
     }
 
     body:not(.is-logged-in) #fundTable td:nth-child(3):hover,
     body:not(.is-logged-in) #fundTable td:nth-child(4):hover,
-    body:not(.is-logged-in) .timeline-meta-tags .coin-badge:hover {
-      filter: blur(4px);
+    body:not(.is-logged-in) .timeline-meta-tags .coin-badge:hover,
+    body:not(.is-logged-in) .blur-target:hover {
+      filter: blur(3.5px) !important;
     }
 
     .lock-pill {
@@ -784,7 +791,7 @@
     .timeline-action-desc {
       font-size: 14px;
       color: #94a3b8;
-      line-height: 1.6;
+      line-height: 1.7;
       margin-bottom: 10px;
     }
 
@@ -1638,18 +1645,20 @@
       </table>
     </div>
 
-    <!-- 타임라인 피드 -->
-    <div id="timelineView">
+    <!-- ===================================================
+         [핵심 수정] 타임라인 피드: 코인명 & 가격대 모자이크 태그 적용
+         =================================================== -->
+    <div id="timelineView" onclick="handleBlurredClick(event)">
       <div class="timeline-list">
         
-        <!-- [신규 1] 발할라 인베스트먼트 - 2026.09.28 -->
+        <!-- [1] 발할라 인베스트먼트 (SEI) -->
         <div class="timeline-card spotlight-card" data-coins="BTC ETH SEI" data-firm="발할라 인베스트먼트 스위스 취리히">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [최신 선취매 공시] 2026.09.28 심의 완료</div>
             <div class="timeline-firm-title">발할라 인베스트먼트 (Valhalla Fund)</div>
             <div class="timeline-action-desc">
-              <strong>[세이(SEI) 병렬 EVM v2 가동 전 저점 매집 완료 보고서]</strong><br>
-              스위스 프라이빗 뱅크 고객 디지털 볼트를 통해 세이 $0.28~$0.34 구간에서 $38M(약 510억 원) 대량 분할 매수 완료. 아시아 대형 거래소 DEX 유동성 유입 및 병렬 처리 메인넷 정식 가동에 앞선 전략적 선점.
+              <strong>[<span class="blur-target">세이(SEI)</span> 병렬 EVM v2 가동 전 저점 매집 완료 보고서]</strong><br>
+              스위스 프라이빗 뱅크 고객 디지털 볼트를 통해 <span class="blur-target">세이 $0.28~$0.34</span> 구간에서 $38M(약 510억 원) 대량 분할 매수 완료. 아시아 대형 거래소 DEX 유동성 유입 및 병렬 처리 메인넷 정식 가동에 앞선 전략적 선점.
             </div>
             <div class="timeline-meta-tags">
               <span class="coin-badge badge-sei">SEI</span>
@@ -1663,14 +1672,14 @@
           </div>
         </div>
 
-        <!-- [신규 2] 한양 크립토 파트너스 - 2026.09.27 -->
+        <!-- [2] 한양 크립토 파트너스 (APT) -->
         <div class="timeline-card spotlight-card" data-coins="BTC ETH APT SUI" data-firm="한양 크립토 파트너스 대한민국 서울">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [최신 선취매 공시] 2026.09.27 심의 완료</div>
             <div class="timeline-firm-title">한양 크립토 파트너스 (Hanyang Partners)</div>
             <div class="timeline-action-desc">
-              <strong>[앱토스(APT) 글로벌 모바일 결제사 제휴 전 선행 매집]</strong><br>
-              앱토스 $7.40~$8.20 저평가 구간에서 국내 기관 펀드 $45M(약 600억 원) 장외(OTC) 매집 집행. 글로벌 핀테크 대기업과의 공식 결제망 연동 및 대규모 기관 자금 유입 발표 전 선제 포지셔닝 완료.
+              <strong>[<span class="blur-target">앱토스(APT)</span> 글로벌 모바일 결제사 제휴 전 선행 매집]</strong><br>
+              <span class="blur-target">앱토스 $7.40~$8.20</span> 저평가 구간에서 국내 기관 펀드 $45M(약 600억 원) 장외(OTC) 매집 집행. 글로벌 핀테크 대기업과의 공식 결제망 연동 및 대규모 기관 자금 유입 발표 전 선제 포지셔닝 완료.
             </div>
             <div class="timeline-meta-tags">
               <span class="coin-badge badge-apt">APT</span>
@@ -1684,14 +1693,14 @@
           </div>
         </div>
 
-        <!-- [신규 3] 사쿠라 디지털 랩스 - 2026.09.25 -->
+        <!-- [3] 사쿠라 디지털 랩스 (RENDER) -->
         <div class="timeline-card spotlight-card" data-coins="BTC XRP RNDR" data-firm="사쿠라 디지털 랩스 일본 도쿄">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [최신 선취매 공시] 2026.09.25 심의 완료</div>
             <div class="timeline-firm-title">사쿠라 디지털 랩스 (Sakura Digital)</div>
             <div class="timeline-action-desc">
-              <strong>[렌더(RENDER) 분산 AI 렌더링 엔터프라이즈 계약 전 선취매]</strong><br>
-              렌더 $5.10~$5.80 안정적 지지선에서 $30M(약 400억 원) 분할 매수 완료. 글로벌 AI 빅테크 클라우드 렌더링 공급 계약 및 솔라나 기반 온체인 노드 보상 확장 공식 발표 전 선점.
+              <strong>[<span class="blur-target">렌더(RENDER)</span> 분산 AI 렌더링 엔터프라이즈 계약 전 선취매]</strong><br>
+              <span class="blur-target">렌더 $5.10~$5.80</span> 안정적 지지선에서 $30M(약 400억 원) 분할 매수 완료. 글로벌 AI 빅테크 클라우드 렌더링 공급 계약 및 솔라나 기반 온체인 노드 보상 확장 공식 발표 전 선점.
             </div>
             <div class="timeline-meta-tags">
               <span class="coin-badge badge-rndr">RNDR</span>
@@ -1705,14 +1714,14 @@
           </div>
         </div>
 
-        <!-- 1. 수이 (SUI) - 크로노스 디지털 -->
+        <!-- [4] 크로노스 디지털 (SUI) -->
         <div class="timeline-card spotlight-card" data-coins="ETH SOL SUI" data-firm="크로노스 디지털 에셋 싱가포르">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.07.24 심의 ➔ 09.24 성과 실현</div>
             <div class="timeline-firm-title">크로노스 디지털 에셋 (Chronos Asset)</div>
             <div class="timeline-action-desc">
-              <strong>[수이(SUI) 폭등 랠리 전 바닥 선취매 및 사후 감사 보고서]</strong><br>
-              수이 $0.95 바닥 매집 완료 후, 9월 24일 최고가 $4.32 도달로 <strong>실제 실현 수익률 +354.7% 확정</strong>. 원금 100% 장외 회수 후 잔여 물량 스테이킹 복리 전환 완료.
+              <strong>[<span class="blur-target">수이(SUI)</span> 폭등 랠리 전 바닥 선취매 및 사후 감사 보고서]</strong><br>
+              <span class="blur-target">수이 $0.95</span> 바닥 매집 완료 후, 9월 24일 최고가 <span class="blur-target">$4.32</span> 도달로 <strong>실제 실현 수익률 +354.7% 확정</strong>. 원금 100% 장외 회수 후 잔여 물량 스테이킹 복리 전환 완료.
             </div>
             <div class="timeline-meta-tags">
               <span class="coin-badge badge-sui">SUI</span>
@@ -1726,14 +1735,14 @@
           </div>
         </div>
 
-        <!-- 2. 에테나 (ENA) - 오리온 퀀트 -->
+        <!-- [5] 오리온 퀀트 (ENA) -->
         <div class="timeline-card spotlight-card" data-coins="BTC SOL ENA" data-firm="오리온 퀀트 매니지먼트 미국 시카고">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.08.05 심의 ➔ 09.22 성과 실현</div>
             <div class="timeline-firm-title">오리온 퀀트 매니지먼트 (Orion Quant)</div>
             <div class="timeline-action-desc">
-              <strong>[에테나(ENA) USDe 급성장 전 퀀트 롱 포지션 사후 보고서]</strong><br>
-              에테나 $0.35 바닥 매수 및 펀딩비 차익거래 가동 후, 9월 22일 $0.915 돌파로 <strong>실제 실현 수익률 +161.4% 확정</strong>. 선물 헤지 포지션 정상 분할 청산.
+              <strong>[<span class="blur-target">에테나(ENA)</span> USDe 급성장 전 퀀트 롱 포지션 사후 보고서]</strong><br>
+              <span class="blur-target">에테나 $0.35</span> 바닥 매수 및 펀딩비 차익거래 가동 후, 9월 22일 <span class="blur-target">$0.915</span> 돌파로 <strong>실제 실현 수익률 +161.4% 확정</strong>. 선물 헤지 포지션 정상 분할 청산.
             </div>
             <div class="timeline-meta-tags">
               <span class="coin-badge badge-ena">ENA</span>
@@ -2073,11 +2082,12 @@
       }
     }
 
+    /* 블러 처리된 영역 클릭 시 로그인 모달창 팝업 */
     function handleBlurredClick(event) {
       const loggedUser = JSON.parse(localStorage.getItem("matrix_logged_user") || "null");
       if (!loggedUser) {
-        const targetTd = event.target.closest("td:nth-child(3), td:nth-child(4)");
-        if (targetTd) {
+        const targetBlur = event.target.closest("td:nth-child(3), td:nth-child(4), .blur-target, .coin-badge");
+        if (targetBlur) {
           openAuthModal('blur');
         }
       }
