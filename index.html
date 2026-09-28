@@ -604,9 +604,7 @@
       gap: 4px;
     }
 
-    /* ===================================================
-       [새로 추가된 곳] 7. 3개 뷰 전환 탭 메뉴 (실시간 시세 탭 추가)
-       =================================================== */
+    /* 7. 3개 뷰 전환 탭 메뉴 */
     .view-switch-container {
       max-width: 1240px;
       margin: 15px auto 10px auto;
@@ -740,6 +738,7 @@
       padding: 15px 20px;
       border-bottom: 1px solid #142236;
       vertical-align: middle;
+      white-space: nowrap; /* 글씨 짤림 방지 */
     }
 
     tr:hover { background-color: #102138; }
@@ -919,11 +918,10 @@
     }
 
     /* ===================================================
-       [새로 추가된 곳] 9. 실시간 암호화폐 시세 대시보드 뷰 스타일 (사진 2 디자인)
+       [개선 적용] 9. 실시간 코인 시세 대시보드 (글씨 짤림 방지 및 가로 한 줄 정렬)
        =================================================== */
     #marketView { display: none; }
 
-    /* 상단 4대 요약 카드 그리드 */
     .market-summary-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -963,12 +961,14 @@
       font-weight: 900;
       color: #ffffff;
       letter-spacing: -0.5px;
+      white-space: nowrap;
     }
 
     .market-card-change {
       font-size: 12px;
       font-weight: 700;
       margin-top: 4px;
+      white-space: nowrap;
     }
 
     .text-red { color: #f87171 !important; }
@@ -980,7 +980,6 @@
       margin-top: 10px;
     }
 
-    /* 트렌드 & 상위 상승 미니 리스트 */
     .mini-coin-item {
       display: flex;
       justify-content: space-between;
@@ -988,6 +987,7 @@
       padding: 5px 0;
       font-size: 12.5px;
       border-bottom: 1px dashed #16263d;
+      white-space: nowrap;
     }
     .mini-coin-item:last-child { border-bottom: none; }
 
@@ -997,15 +997,16 @@
       gap: 6px;
       font-weight: 700;
       color: #ffffff;
+      white-space: nowrap;
     }
 
     .mini-coin-price {
       font-weight: 700;
       color: #e2e8f0;
       text-align: right;
+      white-space: nowrap;
     }
 
-    /* 실시간 코인 시세 테이블 */
     .market-table-wrapper {
       background-color: #0b172a;
       border: 1px solid #1e293b;
@@ -1026,11 +1027,13 @@
       gap: 10px;
       font-weight: 800;
       color: #ffffff;
+      white-space: nowrap; /* 코인 이름 짤림 원천 차단 */
     }
 
     .coin-logo-circle {
       width: 28px;
       height: 28px;
+      min-width: 28px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -1043,28 +1046,22 @@
       font-size: 11.5px;
       color: #64748b;
       font-weight: 600;
-      margin-left: 4px;
-    }
-
-    .btn-buy-pill {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      color: #34d399;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
       margin-left: 6px;
     }
 
-    /* 실시간 가격 변동 깜빡임 펄스 효과 */
-    .price-flash-green {
-      animation: flashGreen 1.2s ease-out;
+    /* [핵심] 화살표와 숫자를 나란히 한 줄로 배치하는 인라인 블록 스타일 */
+    .rate-change-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 800;
+      white-space: nowrap; /* 2층 꺾임 완벽 방지 */
+      font-size: 13.5px;
     }
 
-    .price-flash-red {
-      animation: flashRed 1.2s ease-out;
-    }
+    /* 실시간 가격 변동 깜빡임 펄스 효과 */
+    .price-flash-green { animation: flashGreen 1.2s ease-out; }
+    .price-flash-red { animation: flashRed 1.2s ease-out; }
 
     @keyframes flashGreen {
       0% { background-color: rgba(16, 185, 129, 0.45); color: #34d399; }
@@ -1615,7 +1612,7 @@
 </head>
 <body>
 
-  <!-- 1. 헤더: 회원 프로필, 관리자 관제탑 & 로그인 버튼 -->
+  <!-- 1. 헤더 -->
   <header>
     <a href="index.html" class="logo">
       🏛️ CRYPTO<span>FUND</span> MATRIX
@@ -1649,7 +1646,7 @@
       <div class="ticker-item"><span class="ticker-label">포트폴리오 보안 등급:</span><span class="ticker-value text-blue" id="tickerAccessStatus">비회원 코인명 블러 암호화</span></div>
       <div class="ticker-item"><span class="ticker-label">실시간 시세 피드:</span><span class="ticker-value text-green">🟢 Live Price Feed 가동</span></div>
 
-      <!-- 무한 루프용 복제 세트 -->
+      <!-- 복제본 -->
       <div class="ticker-item"><span class="ticker-label">모니터링 운용사:</span><span class="ticker-value text-blue">72개 글로벌 기관 전수 공시</span></div>
       <div class="ticker-item"><span class="ticker-label">국내 1개월 급등 1위:</span><span class="ticker-value text-green">수이 (SUI) +148.5% ▲</span></div>
       <div class="ticker-item"><span class="ticker-label">실시간 전체 시가총액:</span><span class="ticker-value">$2.94T (약 3,940조 원)</span></div>
@@ -1665,7 +1662,7 @@
     <p>전 세계 헤지펀드 72곳의 포트폴리오를 분석합니다. 최근 선취매 완료 보고서(최소 기대수익률 +150%~300%)와 사후 감사 내역은 인가된 보안 코드 보유자만 열람할 수 있습니다.</p>
   </section>
 
-  <!-- 4. 최근 1개월(30일) 실제 거래소 급등 랭킹 TOP 5 -->
+  <!-- 4. 최근 1개월 급등 랭킹 -->
   <section class="gainers-container">
     <div class="gainers-header">
       <div class="gainers-title-area">
@@ -1949,7 +1946,7 @@
           <div class="review-footer-tag"><span>인증 일시: 2026.09</span><span class="verified-check-tag">✓ 온체인 데이터 공인</span></div>
         </div>
 
-        <!-- 무한 루프용 복제본 8개 -->
+        <!-- 복제본 -->
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap"><span class="reviewer-avatar-blurred">👨‍💻</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">크립토 시황 *** TV</span><span class="reviewer-badge-role">구독자 38만 코인 유튜버</span></div></div><div class="yt-preview-box"><div class="yt-thumb-simulated thumb-theme-breaking"><div class="thumb-bg-breaking-bars"><span>LIVE</span><span style="background:#b91c1c;">긴급</span></div><div class="yt-play-icon">▶</div><div class="yt-title-blurred">[속보] 고래들의 8월 극비 선취매 3선 긴급 공개</div></div></div><div class="review-quote-text">"매일 아침 라이브 방송 켜기 전에 <strong>무조건 1순위로 확인하는 터미널</strong>입니다. 크로노스의 수이 선취매 보고서 덕분에 8월 저점 매수를 구독자들에게 정확히 짚어드릴 수 있었습니다."</div></div><div class="review-footer-tag"><span>인증 일시: 2026.09</span><span class="verified-check-tag">✓ 방송 활용 검증</span></div></div>
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap" style="background: linear-gradient(135deg, #065f46 0%, #047857 100%);"><span class="reviewer-avatar-blurred">📊</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">여의도 *** 파트너스 K***</span><span class="reviewer-badge-role">헤지펀드 수석 퀀트 트레이더</span></div></div><div class="review-quote-text" style="margin-top: 10px;">"개별 거래소 호가창만 봐서는 절대 알 수 없는 <strong>'글로벌 펀드들의 AUM 배분율과 장외 OTC 매집 시점'</strong>이 한눈에 잡힙니다. 델타 뉴트럴 차익거래 포지션을 잡을 때 승률이 비약적으로 올랐습니다."</div></div><div class="review-footer-tag"><span>인증 구분: Class-A CIM</span><span class="verified-check-tag">✓ 운용역 인증</span></div></div>
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap" style="background: linear-gradient(135deg, #6b21a8 0%, #7e22ce 100%);"><span class="reviewer-avatar-blurred">🎬</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">코인 인사이트 ***</span><span class="reviewer-badge-role">구독자 24만 테크 유튜버</span></div></div><div class="yt-preview-box"><div class="yt-thumb-simulated thumb-theme-document"><div class="thumb-bg-doc-badge">CONFIDENTIAL</div><div class="yt-play-icon">▶</div><div class="yt-title-blurred">월가 헤지펀드 내부 문서 실사 분석<br>선취매 포트폴리오 전수 검증</div></div></div><div class="review-quote-text">"단순한 가격 예측 찌라시가 아니라, <strong>실제 기관 투자 심의회 양식과 사후 실현 수익률 감사 메모</strong>까지 투명하게 공개되는 플랫폼은 국내에서 여기가 유일합니다. 영상 제작 레퍼런스로 최고입니다."</div></div><div class="review-footer-tag"><span>인증 일시: 2026.09</span><span class="verified-check-tag">✓ 영상 리뷰 채택</span></div></div>
@@ -1963,9 +1960,7 @@
     </div>
   </section>
 
-  <!-- ===================================================
-       [핵심 변경] 6. 3개 뷰 전환 탭: 실시간 코인 시세 탭 추가!
-       =================================================== -->
+  <!-- 6. 3개 뷰 전환 탭 메뉴 -->
   <div class="view-switch-container">
     <button class="tab-btn active" id="tabTable" onclick="switchView('table')">
       📊 기관별 전체 포트폴리오 (72개 기관)
@@ -1973,7 +1968,6 @@
     <button class="tab-btn" id="tabTimeline" onclick="switchView('timeline')">
       ⏱️ 최근 투자 집행 피드 (최신 선취매 공시 모음)
     </button>
-    <!-- [사진 1에 요청하신 세 번째 카테고리 탭 버튼] -->
     <button class="tab-btn" id="tabMarket" onclick="switchView('market')">
       🌐 실시간 암호화폐 시세 (시가총액별)
     </button>
@@ -1982,7 +1976,6 @@
   <!-- 7. 게시판 본체 컨테이너 -->
   <main class="board-container">
     
-    <!-- 테이블 & 타임라인 헤더 (시세 탭에서는 숨김) -->
     <div class="board-header" id="boardControlsHeader">
       <div class="board-title">
         <h2 id="boardMainTitle">기관별 가상자산 편입 현황 (72개 기관)</h2>
@@ -2019,7 +2012,6 @@
           </tr>
         </thead>
         <tbody onclick="handleBlurredClick(event)">
-          <!-- 1~10 -->
           <tr data-coins="BTC ETH SEI"><td><div class="firm-name">1. 발할라 인베스트먼트 (Valhalla Fund)</div><div class="firm-location">스위스 취리히 · 프라이빗 뱅크</div></td><td><strong>$2.4B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sei">SEI</span></td><td>BTC 50% / ETH 30% / SEI 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC ETH APT SUI"><td><div class="firm-name">2. 한양 크립토 파트너스 (Hanyang Partners)</div><div class="firm-location">대한민국 서울 · 블록체인 펀드</div></td><td><strong>$1.8B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-apt">APT</span><span class="coin-badge badge-sui">SUI</span></td><td>BTC 40% / ETH 25% / APT 20% / SUI 15%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC XRP RNDR"><td><div class="firm-name">3. 사쿠라 디지털 랩스 (Sakura Digital)</div><div class="firm-location">일본 도쿄 · 테크 인베스트먼트</div></td><td><strong>$2.7B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-xrp">XRP</span><span class="coin-badge badge-rndr">RNDR</span></td><td>XRP 45% / BTC 35% / RNDR 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
@@ -2030,8 +2022,6 @@
           <tr data-coins="SOL SOON NEAR"><td><div class="firm-name">8. 블루록 벤처 캐피탈 (BlueRock Ventures)</div><div class="firm-location">미국 샌프란시스코 · VC</div></td><td><strong>$2.1B</strong></td><td><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-soon">SOON</span><span class="coin-badge badge-near">NEAR</span></td><td>SOL 40% / SOON 35% / NEAR 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC ETH XRP"><td><div class="firm-name">9. 아틀라스 소버린 웰스 (Atlas Sovereign)</div><div class="firm-location">아랍에미리트 아부다비 · 국부펀드</div></td><td><strong>$8.5B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-xrp">XRP</span></td><td>BTC 60% / ETH 25% / XRP 15%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC XRP LINK"><td><div class="firm-name">10. 켄타우로스 캐피탈 (Centaurus PE)</div><div class="firm-location">독일 프랑크푸르트 · 사모펀드</div></td><td><strong>$3.5B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-xrp">XRP</span><span class="coin-badge badge-link">LINK</span></td><td>BTC 45% / XRP 35% / LINK 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
-
-          <!-- 11~20 -->
           <tr data-coins="ETH ADA DOT"><td><div class="firm-name">11. 엘리시움 에셋 (Elysium Asset)</div><div class="firm-location">프랑스 파리 · 자산운용사</div></td><td><strong>$1.9B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-ada">ADA</span><span class="coin-badge badge-dot">DOT</span></td><td>ETH 50% / ADA 25% / DOT 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="SOL SUI APT"><td><div class="firm-name">12. 사이퍼 인스티튜셔널 (Cypher Tech)</div><div class="firm-location">미국 보스턴 · 펀드 매니지먼트</div></td><td><strong>$1.8B</strong></td><td><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-sui">SUI</span><span class="coin-badge badge-apt">APT</span></td><td>SOL 40% / SUI 35% / APT 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="ETH SOL AVAX"><td><div class="firm-name">13. 노바 호라이즌 캐피탈 (Nova Horizon)</div><div class="firm-location">캐나다 토론토 · 멀티전략 펀드</div></td><td><strong>$2.2B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-avax">AVAX</span></td><td>ETH 45% / SOL 35% / AVAX 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
@@ -2042,8 +2032,7 @@
           <tr data-coins="BTC AVAX LSK"><td><div class="firm-name">18. 알프스 디지털 매니지먼트 (Alps Digital)</div><div class="firm-location">오스트리아 빈 · 멀티자산운용</div></td><td><strong>$2.3B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-avax">AVAX</span><span class="coin-badge badge-lsk">LSK</span></td><td>BTC 50% / AVAX 30% / LSK 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="SOL SUI SOON"><td><div class="firm-name">19. 싱가포르 알파 벤처스 (SG Alpha Ventures)</div><div class="firm-location">싱가포르 · 테크 VC</div></td><td><strong>$2.5B</strong></td><td><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-sui">SUI</span><span class="coin-badge badge-soon">SOON</span></td><td>SOL 40% / SUI 35% / SOON 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC XRP APT"><td><div class="firm-name">20. 도쿄 베이 디지털 자산 (Tokyo Bay Capital)</div><div class="firm-location">일본 도쿄 · 디지털 자산</div></td><td><strong>$1.6B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-xrp">XRP</span><span class="coin-badge badge-apt">APT</span></td><td>BTC 45% / XRP 35% / APT 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
-
-          <!-- 21~30 -->
+          <!-- 21~72 -->
           <tr data-coins="BTC ETH RNDR"><td><div class="firm-name">21. 런던 브리지 에셋 (London Bridge Asset)</div><div class="firm-location">영국 런던 · 대체투자</div></td><td><strong>$4.4B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-rndr">RNDR</span></td><td>BTC 50% / ETH 30% / RNDR 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="SOL ENA SUI"><td><div class="firm-name">22. 맨해튼 퀀트 파트너스 (Manhattan Quant)</div><div class="firm-location">미국 뉴욕 · 퀀트 트레이딩</div></td><td><strong>$3.7B</strong></td><td><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-ena">ENA</span><span class="coin-badge badge-sui">SUI</span></td><td>SOL 40% / ENA 35% / SUI 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC XRP SOL"><td><div class="firm-name">23. 두바이 크레센트 웰스 (Crescent Wealth)</div><div class="firm-location">아랍에미리트 두바이 · 패밀리오피스</div></td><td><strong>$5.1B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-xrp">XRP</span><span class="coin-badge badge-sol">SOL</span></td><td>BTC 55% / XRP 30% / SOL 15%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
@@ -2054,8 +2043,6 @@
           <tr data-coins="ETH SOL SOON"><td><div class="firm-name">28. 시드니 하버 펀드 (Sydney Harbour Fund)</div><div class="firm-location">호주 시드니 · 대체자산</div></td><td><strong>$2.0B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-soon">SOON</span></td><td>ETH 40% / SOL 35% / SOON 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC ETH ENA"><td><div class="firm-name">29. 룩셈부르크 펀드 솔루션 (Luxembourg Solutions)</div><div class="firm-location">룩셈부르크 · 기관 펀드</div></td><td><strong>$4.8B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-ena">ENA</span></td><td>BTC 50% / ETH 30% / ENA 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="SOL SEI NEAR"><td><div class="firm-name">30. 암스테르담 디지털 에셋 (Amsterdam Digital)</div><div class="firm-location">네덜란드 암스테르담 · 퀀트</div></td><td><strong>$2.2B</strong></td><td><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-sei">SEI</span><span class="coin-badge badge-near">NEAR</span></td><td>SOL 40% / SEI 35% / NEAR 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
-
-          <!-- 31~40 -->
           <tr data-coins="ETH RNDR SUI"><td><div class="firm-name">31. 텔아비브 이노베이션 펀드 (Tel Aviv Innovation)</div><div class="firm-location">이스라엘 텔아비브 · 벤처</div></td><td><strong>$1.9B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-rndr">RNDR</span><span class="coin-badge badge-sui">SUI</span></td><td>ETH 40% / RNDR 35% / SUI 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC ETH SOL"><td><div class="firm-name">32. 시카고 파생 에셋 (Chicago Derivatives)</div><div class="firm-location">미국 시카고 · 선물옵션</div></td><td><strong>$4.6B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sol">SOL</span></td><td>BTC 55% / ETH 30% / SOL 15%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC XRP ENA"><td><div class="firm-name">33. 부산 디지털 블록체인 (Busan Digital PE)</div><div class="firm-location">대한민국 부산 · 지자체 펀드</div></td><td><strong>$1.3B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-xrp">XRP</span><span class="coin-badge badge-ena">ENA</span></td><td>BTC 45% / XRP 35% / ENA 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
@@ -2066,8 +2053,6 @@
           <tr data-coins="ETH SEI APT"><td><div class="firm-name">38. 오클랜드 퍼시픽 에셋 (Auckland Pacific)</div><div class="firm-location">뉴질랜드 오클랜드 · 헤지펀드</div></td><td><strong>$1.5B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sei">SEI</span><span class="coin-badge badge-apt">APT</span></td><td>ETH 45% / SEI 30% / APT 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC XRP LSK"><td><div class="firm-name">39. 밀라노 럭셔리 웰스 (Milano Wealth)</div><div class="firm-location">이탈리아 밀라노 · 패밀리오피스</div></td><td><strong>$2.1B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-xrp">XRP</span><span class="coin-badge badge-lsk">LSK</span></td><td>BTC 45% / XRP 35% / LSK 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="ETH SOL SOON"><td><div class="firm-name">40. 바르셀로나 블록체인 랩 (Barcelona Lab)</div><div class="firm-location">스페인 바르셀로나 · 테크 VC</div></td><td><strong>$1.8B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-soon">SOON</span></td><td>ETH 40% / SOL 35% / SOON 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
-
-          <!-- 41~50 -->
           <tr data-coins="BTC NEAR RNDR"><td><div class="firm-name">41. 헬싱키 노르딕 테크 (Helsinki Tech Fund)</div><div class="firm-location">핀란드 헬싱키 · 테크 펀드</div></td><td><strong>$1.6B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-near">NEAR</span><span class="coin-badge badge-rndr">RNDR</span></td><td>BTC 40% / NEAR 35% / RNDR 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="ETH ENA SUI"><td><div class="firm-name">42. 더블린 디지털 파트너스 (Dublin Digital)</div><div class="firm-location">아일랜드 더블린 · 대체투자</div></td><td><strong>$2.8B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-ena">ENA</span><span class="coin-badge badge-sui">SUI</span></td><td>ETH 45% / ENA 30% / SUI 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC ETH XRP"><td><div class="firm-name">43. 리야드 킹덤 인베스트 (Riyadh Kingdom)</div><div class="firm-location">사우디아라비아 리야드 · 국부펀드</div></td><td><strong>$7.9B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-xrp">XRP</span></td><td>BTC 55% / ETH 30% / XRP 15%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
@@ -2078,8 +2063,6 @@
           <tr data-coins="SOL RNDR SOON"><td><div class="firm-name">48. 멜버른 퀀트 매니지먼트 (Melbourne Quant)</div><div class="firm-location">호주 멜버른 · 퀀트</div></td><td><strong>$2.3B</strong></td><td><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-rndr">RNDR</span><span class="coin-badge badge-soon">SOON</span></td><td>SOL 40% / RNDR 35% / SOON 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="SUI APT NEAR"><td><div class="firm-name">49. 판교 블록체인 벤처스 (Pangyo Ventures)</div><div class="firm-location">대한민국 성남 · 테크 VC</div></td><td><strong>$1.5B</strong></td><td><span class="coin-badge badge-sui">SUI</span><span class="coin-badge badge-apt">APT</span><span class="coin-badge badge-near">NEAR</span></td><td>SUI 40% / APT 35% / NEAR 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC ETH SOL"><td><div class="firm-name">50. 런던 카나리 캐피탈 (Canary Wharf Capital)</div><div class="firm-location">영국 런던 · 헤지펀드</div></td><td><strong>$5.2B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sol">SOL</span></td><td>BTC 50% / ETH 30% / SOL 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
-
-          <!-- 51~60 -->
           <tr data-coins="SOL RNDR SEI"><td><div class="firm-name">51. 시애틀 클라우드 에셋 (Seattle Cloud Asset)</div><div class="firm-location">미국 시애틀 · 테크 인베스트</div></td><td><strong>$3.8B</strong></td><td><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-rndr">RNDR</span><span class="coin-badge badge-sei">SEI</span></td><td>SOL 40% / RNDR 35% / SEI 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC XRP LSK"><td><div class="firm-name">52. 제네바 PB 솔루션 (Geneva PB Solutions)</div><div class="firm-location">스위스 제네바 · PB</div></td><td><strong>$2.9B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-xrp">XRP</span><span class="coin-badge badge-lsk">LSK</span></td><td>BTC 45% / XRP 35% / LSK 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC ETH SUI"><td><div class="firm-name">53. 두바이 마리나 웰스 (Dubai Marina Wealth)</div><div class="firm-location">아랍에미리트 두바이 · 패밀리오피스</div></td><td><strong>$4.3B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sui">SUI</span></td><td>BTC 50% / ETH 30% / SUI 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
@@ -2090,8 +2073,6 @@
           <tr data-coins="ETH SUI RNDR"><td><div class="firm-name">58. 몬트리올 디지털 에셋 (Montreal Digital)</div><div class="firm-location">캐나다 몬트리올 · 자산운용</div></td><td><strong>$2.5B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sui">SUI</span><span class="coin-badge badge-rndr">RNDR</span></td><td>ETH 40% / SUI 35% / RNDR 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC SOL APT"><td><div class="firm-name">59. 제주 웹3 글로벌 (Jeju Web3 Global)</div><div class="firm-location">대한민국 제주 · 특구 펀드</div></td><td><strong>$1.2B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-apt">APT</span></td><td>BTC 45% / SOL 35% / APT 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="ETH LSK NEAR"><td><div class="firm-name">60. 스톡홀름 발틱 에셋 (Stockholm Baltic)</div><div class="firm-location">스웨덴 스톡홀름 · 헤지펀드</div></td><td><strong>$2.0B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-lsk">LSK</span><span class="coin-badge badge-near">NEAR</span></td><td>ETH 40% / LSK 35% / NEAR 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
-
-          <!-- 61~72 -->
           <tr data-coins="BTC XRP ENA"><td><div class="firm-name">61. 마드리드 이베리아 펀드 (Madrid Iberia)</div><div class="firm-location">스페인 마드리드 · 대체투자</div></td><td><strong>$1.8B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-xrp">XRP</span><span class="coin-badge badge-ena">ENA</span></td><td>BTC 45% / XRP 35% / ENA 20%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="ETH SOL SUI"><td><div class="firm-name">62. 아테네 올림푸스 캐피탈 (Athens Olympus)</div><div class="firm-location">그리스 아테네 · 패밀리오피스</div></td><td><strong>$1.5B</strong></td><td><span class="coin-badge badge-eth">ETH</span><span class="coin-badge badge-sol">SOL</span><span class="coin-badge badge-sui">SUI</span></td><td>ETH 40% / SOL 35% / SUI 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
           <tr data-coins="BTC SEI SOON"><td><div class="firm-name">63. 덴버 마운틴 웰스 (Denver Mountain)</div><div class="firm-location">미국 덴버 · 크립토 펀드</div></td><td><strong>$2.4B</strong></td><td><span class="coin-badge badge-btc">BTC</span><span class="coin-badge badge-sei">SEI</span><span class="coin-badge badge-soon">SOON</span></td><td>BTC 40% / SEI 35% / SOON 25%</td><td><button class="btn-report" onclick="openExecutiveReport(this)">보고서 요약</button></td></tr>
@@ -2111,7 +2092,6 @@
     <!-- 뷰 2: 타임라인 피드 -->
     <div id="timelineView" onclick="handleBlurredClick(event)">
       <div class="timeline-list">
-        <!-- 1 -->
         <div class="timeline-card spotlight-card" data-coins="BTC ETH SEI" data-firm="발할라 인베스트먼트 스위스 취리히">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [최신 선취매 공시] 2026.09.28 심의 완료</div>
@@ -2132,7 +2112,6 @@
           </div>
         </div>
 
-        <!-- 2 -->
         <div class="timeline-card spotlight-card" data-coins="BTC ETH APT SUI" data-firm="한양 크립토 파트너스 대한민국 서울">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [최신 선취매 공시] 2026.09.27 심의 완료</div>
@@ -2153,7 +2132,6 @@
           </div>
         </div>
 
-        <!-- 3 -->
         <div class="timeline-card spotlight-card" data-coins="BTC XRP RNDR" data-firm="사쿠라 디지털 랩스 일본 도쿄">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [최신 선취매 공시] 2026.09.25 심의 완료</div>
@@ -2174,7 +2152,6 @@
           </div>
         </div>
 
-        <!-- 4 -->
         <div class="timeline-card spotlight-card" data-coins="ETH SOL SUI" data-firm="크로노스 디지털 에셋 싱가포르">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.07.24 심의 ➔ 09.24 성과 실현</div>
@@ -2195,7 +2172,6 @@
           </div>
         </div>
 
-        <!-- 5 -->
         <div class="timeline-card spotlight-card" data-coins="BTC SOL ENA" data-firm="오리온 퀀트 매니지먼트 미국 시카고">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.08.05 심의 ➔ 09.22 성과 실현</div>
@@ -2218,15 +2194,9 @@
       </div>
     </div>
 
-    <!-- ===================================================
-         [새로 추가된 곳] 뷰 3: 실시간 암호화폐 시세 대시보드 (사진 2 완벽 구현)
-         =================================================== -->
+    <!-- 뷰 3: 실시간 코인 시세 대시보드 (매수 버튼 제거 & 가로 한 줄 정렬 완료) -->
     <div id="marketView">
-      
-      <!-- 상단 요약 카드 4종 (전체 시가총액, 24시간 거래대금, 트렌드 코인, 상위 상승 종목) -->
       <div class="market-summary-grid">
-        
-        <!-- 카드 1: 전체 시가총액 -->
         <div class="market-summary-card sparkline-card">
           <div>
             <div class="market-card-label">
@@ -2236,14 +2206,12 @@
             <div class="market-card-val" id="marketCapTotalVal">US$2,937,321,974,365</div>
             <div class="market-card-change text-red" id="marketCapChangeVal">▼ 1.7% (최근 24시간)</div>
           </div>
-          <!-- 미니 하락 꺾은선 차트 (사진 2의 붉은 그래프) -->
           <svg class="mini-spark-svg" viewBox="0 0 100 30" preserveAspectRatio="none">
             <polyline fill="none" stroke="#f87171" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
               points="0,15 15,10 30,12 45,7 60,9 75,18 85,14 100,28" />
           </svg>
         </div>
 
-        <!-- 카드 2: 24시간 거래대금 -->
         <div class="market-summary-card sparkline-card">
           <div>
             <div class="market-card-label">
@@ -2253,14 +2221,12 @@
             <div class="market-card-val" id="marketVolumeVal">US$97,968,755,202</div>
             <div class="market-card-change text-green">▲ 8.4% (전일 대비 급증)</div>
           </div>
-          <!-- 미니 상승 꺾은선 차트 (사진 2의 녹색 급등 그래프) -->
           <svg class="mini-spark-svg" viewBox="0 0 100 30" preserveAspectRatio="none">
             <polyline fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
               points="0,26 20,25 40,24 60,25 75,23 80,18 85,2 100,6" />
           </svg>
         </div>
 
-        <!-- 카드 3: 🔥 트렌드 코인 (사진 2 재현) -->
         <div class="market-summary-card">
           <div class="market-card-label">
             <span>🔥 실시간 트렌드</span>
@@ -2282,7 +2248,6 @@
           </div>
         </div>
 
-        <!-- 카드 4: 🚀 상위 상승 종목 (사진 2 재현) -->
         <div class="market-summary-card">
           <div class="market-card-label">
             <span>🚀 24시간 급등 랭킹</span>
@@ -2303,10 +2268,9 @@
             </div>
           </div>
         </div>
-
       </div>
 
-      <!-- 실시간 시세 테이블 (사진 2의 하단 테이블 완벽 구현) -->
+      <!-- 실시간 시세 테이블 (매수 버튼 완전 제거 & 화살표 가로 배치 적용) -->
       <div class="market-table-wrapper">
         <table>
           <thead>
@@ -2323,11 +2287,10 @@
             </tr>
           </thead>
           <tbody id="marketTableBody">
-            <!-- 자바스크립트로 1초마다 가격이 깜빡이며 실시간 업데이트됩니다 -->
+            <!-- 자바스크립트로 가로 한 줄로 자동 렌더링됩니다 -->
           </tbody>
         </table>
       </div>
-
     </div>
 
   </main>
@@ -2530,7 +2493,6 @@
     const MASTER_SECURITY_CODE = "JMC1016";
     let pendingReportRow = null;
 
-    // 방문자 기록
     async function recordRealVisitor() {
       const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
       const sessionKey = 'matrix_visited_' + todayStr;
@@ -3036,9 +2998,6 @@
       }
     });
 
-    // ===================================================
-    // [핵심 기능] 3개 탭 전환 함수 (table / timeline / market)
-    // ===================================================
     let currentView = 'table';
     function switchView(viewName) {
       currentView = viewName;
@@ -3052,12 +3011,10 @@
       const mainTitle = document.getElementById('boardMainTitle');
       const subTitle = document.getElementById('boardSubTitle');
 
-      // 탭 활성화 클래스 초기화
       tabTable.classList.remove('active');
       tabTimeline.classList.remove('active');
       tabMarket.classList.remove('active');
 
-      // 뷰 숨김 초기화
       tableView.style.display = 'none';
       timelineView.style.display = 'none';
       marketView.style.display = 'none';
@@ -3079,7 +3036,7 @@
       } else if (viewName === 'market') {
         tabMarket.classList.add('active');
         marketView.style.display = 'block';
-        boardControlsHeader.style.display = 'none'; // 시세 전용 대시보드가 있으므로 상단 검색바 숨김
+        boardControlsHeader.style.display = 'none';
         renderMarketDashboard();
       }
     }
@@ -3127,7 +3084,7 @@
     }
 
     // ===================================================
-    // [핵심] 실시간 암호화폐 시세 데이터 엔진 & 실시간 깜빡임 시뮬레이션
+    // [수정 완료] 실시간 코인 시세 데이터 (매수 버튼 제거 & 화살표 가로 배치)
     // ===================================================
     let liveCoins = [
       { id: 'btc', name: '비트코인', sym: 'BTC', icon: '₿', iconBg: '#f7931a', price: 83453.12, ch1h: -0.1, ch24h: -1.3, ch7d: 2.5, vol: '$26,810,474,611', mcap: '$1,676,610,557,119', trend: 'up' },
@@ -3144,7 +3101,6 @@
       { id: 'near', name: '니어프로토콜', sym: 'NEAR', icon: 'Ⓝ', iconBg: '#00c08b', price: 5.26, ch1h: 0.6, ch24h: 3.9, ch7d: 28.4, vol: '$870,000,000', mcap: '$6,350,000,000', trend: 'up' }
     ];
 
-    // SVG 스파크라인 생성기 (상승이면 초록색, 하락이면 붉은색 파동선)
     function generateSparkline(trend) {
       if (trend === 'up') {
         return `
@@ -3163,7 +3119,6 @@
       }
     }
 
-    // 시세 대시보드 렌더링 함수
     function renderMarketDashboard() {
       const tbody = document.getElementById('marketTableBody');
       if (!tbody) return;
@@ -3173,35 +3128,46 @@
         const tr = document.createElement('tr');
         tr.id = 'coinRow_' + c.id;
 
-        const ch1hClass = c.ch1h >= 0 ? 'text-green' : 'text-red';
-        const ch24hClass = c.ch24h >= 0 ? 'text-green' : 'text-red';
-        const ch7dClass = c.ch7d >= 0 ? 'text-green' : 'text-red';
+        const ch1hColor = c.ch1h >= 0 ? 'text-green' : 'text-red';
+        const ch24hColor = c.ch24h >= 0 ? 'text-green' : 'text-red';
+        const ch7dColor = c.ch7d >= 0 ? 'text-green' : 'text-red';
 
-        const ch1hSign = c.ch1h >= 0 ? '▲ ' : '▼ ';
-        const ch24hSign = c.ch24h >= 0 ? '▲ ' : '▼ ';
-        const ch7dSign = c.ch7d >= 0 ? '▲ ' : '▼ ';
+        const ch1hArrow = c.ch1h >= 0 ? '▲' : '▼';
+        const ch24hArrow = c.ch24h >= 0 ? '▲' : '▼';
+        const ch7dArrow = c.ch7d >= 0 ? '▲' : '▼';
 
+        // [핵심] '매수' 버튼 삭제 & 화살표를 숫자 옆에 딱 붙인 구조
         tr.innerHTML = `
           <td style="text-align:center; color:#64748b; font-weight:700;">${idx + 1}</td>
           <td>
             <div class="coin-profile-cell">
               <span class="coin-logo-circle" style="background:${c.iconBg};">${c.icon}</span>
-              <div>
-                <span>${c.name}</span><span class="coin-symbol-sub">${c.sym}</span>
-                <span class="btn-buy-pill">매수</span>
-              </div>
+              <span style="font-size:14px; font-weight:800;">${c.name}</span>
+              <span class="coin-symbol-sub">${c.sym}</span>
             </div>
           </td>
           <td>
-            <strong id="priceText_${c.id}" style="font-size:14.5px; color:#ffffff; padding:2px 6px; border-radius:4px; display:inline-block;">
+            <strong id="priceText_${c.id}" style="font-size:14.5px; color:#ffffff; padding:2px 6px; border-radius:4px; display:inline-block; white-space:nowrap;">
               US$${c.price.toLocaleString(undefined, { minimumFractionDigits: c.price < 1 ? 4 : 2, maximumFractionDigits: c.price < 1 ? 4 : 2 })}
             </strong>
           </td>
-          <td class="${ch1hClass}" style="font-weight:700;">${ch1hSign}${Math.abs(c.ch1h)}%</td>
-          <td class="${ch24hClass}" style="font-weight:700;">${ch24hSign}${Math.abs(c.ch24h)}%</td>
-          <td class="${ch7dClass}" style="font-weight:700;">${ch7dSign}${Math.abs(c.ch7d)}%</td>
-          <td style="color:#cbd5e1; font-family:monospace;">${c.vol}</td>
-          <td style="color:#cbd5e1; font-family:monospace; font-weight:600;">${c.mcap}</td>
+          <td>
+            <span class="rate-change-badge ${ch1hColor}">
+              <span>${ch1hArrow}</span><span>${Math.abs(c.ch1h)}%</span>
+            </span>
+          </td>
+          <td>
+            <span class="rate-change-badge ${ch24hColor}">
+              <span>${ch24hArrow}</span><span>${Math.abs(c.ch24h)}%</span>
+            </span>
+          </td>
+          <td>
+            <span class="rate-change-badge ${ch7dColor}">
+              <span>${ch7dArrow}</span><span>${Math.abs(c.ch7d)}%</span>
+            </span>
+          </td>
+          <td style="color:#cbd5e1; font-family:monospace; white-space:nowrap;">${c.vol}</td>
+          <td style="color:#cbd5e1; font-family:monospace; font-weight:600; white-space:nowrap;">${c.mcap}</td>
           <td style="text-align:center;">
             ${generateSparkline(c.trend)}
           </td>
@@ -3210,11 +3176,10 @@
       });
     }
 
-    // 2.5초마다 호가 실시간 체결 깜빡임(Pulse) 시뮬레이션
+    // 2.5초마다 호가 변동 시뮬레이션
     setInterval(() => {
       if (currentView !== 'market') return;
 
-      // 무작위로 1~3개 코인의 가격을 소폭 변동시킴
       const changeCount = 2 + Math.floor(Math.random() * 2);
       for (let i = 0; i < changeCount; i++) {
         const randIndex = Math.floor(Math.random() * liveCoins.length);
@@ -3229,13 +3194,12 @@
         if (priceEl) {
           priceEl.innerText = `US$${coin.price.toLocaleString(undefined, { minimumFractionDigits: coin.price < 1 ? 4 : 2, maximumFractionDigits: coin.price < 1 ? 4 : 2 })}`;
           priceEl.classList.remove('price-flash-green', 'price-flash-red');
-          void priceEl.offsetWidth; // DOM 애니메이션 리셋 트릭
+          void priceEl.offsetWidth;
           priceEl.classList.add(isUp ? 'price-flash-green' : 'price-flash-red');
         }
       }
     }, 2500);
 
-    // 초기화
     updateAuthUI();
     recordRealVisitor();
   </script>
