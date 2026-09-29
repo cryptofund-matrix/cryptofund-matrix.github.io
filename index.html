@@ -909,6 +909,9 @@
       color: #08101e;
     }
 
+    /* ===================================================
+       [신규 & 개선] 9. 실시간 코인 시세 대시보드 및 하단 프로 인터랙티브 차트
+       =================================================== */
     #marketView { display: none; }
 
     .market-summary-grid {
@@ -996,19 +999,33 @@
       white-space: nowrap;
     }
 
+    /* 시세 테이블 스타일 */
     .market-table-wrapper {
       background-color: #0b172a;
       border: 1px solid #1e293b;
       border-radius: 10px;
       overflow-x: auto;
-      max-height: 700px;
+      max-height: 600px;
       overflow-y: auto;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      margin-bottom: 26px;
     }
 
     .market-table-wrapper::-webkit-scrollbar { width: 8px; height: 8px; }
     .market-table-wrapper::-webkit-scrollbar-track { background: #081220; }
     .market-table-wrapper::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
+
+    .clickable-coin-row {
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+    .clickable-coin-row:hover {
+      background-color: #10253f !important;
+    }
+    .clickable-coin-row.active-chart-row {
+      background-color: #123055 !important;
+      border-left: 4px solid #38bdf8;
+    }
 
     .coin-profile-cell {
       display: flex;
@@ -1064,9 +1081,71 @@
       height: 36px;
     }
 
-    /* ===================================================
-       10. 보고서 모달 스타일 (거래소 공식 로고 원형 뱃지)
-       =================================================== */
+    /* [새로 추가된 곳] 맨 아래 실시간 트레이딩 차트 컨테이너 */
+    .live-chart-container {
+      background: #091322;
+      border: 1px solid #1e3a5f;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+      margin-top: 10px;
+      animation: modalFadeIn 0.3s ease-out;
+    }
+
+    .live-chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px solid #1a2a44;
+      padding-bottom: 14px;
+    }
+
+    .live-chart-title-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .live-chart-icon-wrap {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+    }
+
+    .live-chart-title-text h3 {
+      font-size: 19px;
+      font-weight: 900;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live-chart-title-text p {
+      font-size: 12.5px;
+      color: #64748b;
+      margin-top: 3px;
+    }
+
+    .chart-tv-box {
+      width: 100%;
+      height: 540px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #1a2c47;
+      background: #070e1b;
+    }
+
+    /* 10. 보고서 모달 스타일 */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -1641,8 +1720,12 @@
       .timeline-btn-area { align-items: flex-start; width: 100%; margin-top: 10px; }
       .admin-stats-grid { grid-template-columns: 1fr; }
       .review-card { width: 280px; min-width: 280px; }
+      .chart-tv-box { height: 400px; }
     }
   </style>
+
+  <!-- [중요] 전 세계 금융 차트 표준: 트레이딩뷰 실시간 엔진 라이브러리 -->
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 </head>
 <body>
 
@@ -1678,14 +1761,14 @@
       <div class="ticker-item"><span class="ticker-label">국내 1개월 급등 1위:</span><span class="ticker-value text-green">수이 (SUI) +148.5% ▲</span></div>
       <div class="ticker-item"><span class="ticker-label">실시간 전체 시가총액:</span><span class="ticker-value" id="topTickerMarketCap">$2.94T (약 3,940조 원)</span></div>
       <div class="ticker-item"><span class="ticker-label">포트폴리오 보안 등급:</span><span class="ticker-value text-blue" id="tickerAccessStatus">비회원 코인명 블러 암호화</span></div>
-      <div class="ticker-item"><span class="ticker-label">일일 공시 엔진:</span><span class="ticker-value text-green">🟢 매일 자동 실시간 갱신 가동</span></div>
+      <div class="ticker-item"><span class="ticker-label">실시간 캔들 차트:</span><span class="ticker-value text-green">🟢 TradingView Pro Live 가동</span></div>
 
       <!-- 복제 세트 -->
       <div class="ticker-item"><span class="ticker-label">모니터링 운용사:</span><span class="ticker-value text-blue">72개 글로벌 기관 전수 공시</span></div>
       <div class="ticker-item"><span class="ticker-label">국내 1개월 급등 1위:</span><span class="ticker-value text-green">수이 (SUI) +148.5% ▲</span></div>
       <div class="ticker-item"><span class="ticker-label">실시간 전체 시가총액:</span><span class="ticker-value">$2.94T (약 3,940조 원)</span></div>
       <div class="ticker-item"><span class="ticker-label">포트폴리오 보안 등급:</span><span class="ticker-value text-blue">비회원 코인명 블러 암호화</span></div>
-      <div class="ticker-item"><span class="ticker-label">일일 공시 엔진:</span><span class="ticker-value text-green">🟢 매일 자동 실시간 갱신 가동</span></div>
+      <div class="ticker-item"><span class="ticker-label">실시간 캔들 차트:</span><span class="ticker-value text-green">🟢 TradingView Pro Live 가동</span></div>
     </div>
   </section>
 
@@ -1850,9 +1933,7 @@
       </div>
     </div>
 
-    <!-- ===================================================
-         [완벽 복구] 뷰 1: 1번부터 72번까지 한 줄도 빠짐없는 전수 테이블
-         =================================================== -->
+    <!-- 뷰 1: 72개 전수 수록 테이블 -->
     <div class="table-wrapper" id="tableView">
       <table id="fundTable">
         <thead>
@@ -1945,7 +2026,7 @@
     <div id="timelineView" onclick="handleBlurredClick(event)">
       <div class="timeline-list" id="timelineCardsContainer">
         
-        <!-- 오늘 날짜 실시간 자동 공시 (체인링크 LINK) -->
+        <!-- 실시간 자동 공시 (체인링크) -->
         <div class="timeline-card spotlight-card" id="autoTodayCard" data-firm="오슬로 피오르 펀드 Oslo Fjord Fund 노르웨이 오슬로 국부펀드">
           <div>
             <div class="timeline-date-badge badge-today-live" id="autoTodayDateBadge">
@@ -1967,7 +2048,7 @@
           </div>
         </div>
 
-        <!-- 발할라 (세이 SEI) -->
+        <!-- 발할라 (세이) -->
         <div class="timeline-card spotlight-card" data-firm="발할라 인베스트먼트 Valhalla Fund 스위스 취리히">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.09.28 심의 완료</div>
@@ -1987,7 +2068,7 @@
           </div>
         </div>
 
-        <!-- 한양 (앱토스 APT) -->
+        <!-- 한양 (앱토스) -->
         <div class="timeline-card spotlight-card" data-firm="한양 크립토 파트너스 Hanyang Partners 대한민국 서울">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.09.27 심의 완료</div>
@@ -2007,7 +2088,7 @@
           </div>
         </div>
 
-        <!-- 사쿠라 (렌더 RNDR) -->
+        <!-- 사쿠라 (렌더) -->
         <div class="timeline-card spotlight-card" data-firm="사쿠라 디지털 랩스 Sakura Digital 일본 도쿄">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.09.25 심의 완료</div>
@@ -2027,7 +2108,7 @@
           </div>
         </div>
 
-        <!-- 크로노스 (수이 SUI) -->
+        <!-- 크로노스 (수이) -->
         <div class="timeline-card spotlight-card" data-firm="크로노스 디지털 에셋 Chronos Asset 싱가포르">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.07.24 심의 ➔ 09.24 성과 실현</div>
@@ -2047,7 +2128,7 @@
           </div>
         </div>
 
-        <!-- 오리온 (에테나 ENA) -->
+        <!-- 오리온 (에테나) -->
         <div class="timeline-card spotlight-card" data-firm="오리온 퀀트 매니지먼트 Orion Quant 미국 시카고">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.08.05 심의 ➔ 09.22 성과 실현</div>
@@ -2069,7 +2150,9 @@
       </div>
     </div>
 
-    <!-- 뷰 3: 실시간 코인 시세 대시보드 -->
+    <!-- ===================================================
+         [핵심 수정] 뷰 3: 실시간 코인 시세 대시보드 (25개 코인 + 하단 실시간 프로 차트 연동)
+         =================================================== -->
     <div id="marketView">
       <div class="market-summary-grid">
         <div class="market-summary-card sparkline-card">
@@ -2145,6 +2228,15 @@
         </div>
       </div>
 
+      <!-- 시세 안내 바 -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; padding:0 4px;">
+        <span style="font-size:13px; color:#94a3b8;">
+          💡 <strong>원하는 코인을 클릭</strong>하시면 하단에 해당 코인의 <strong>실시간 프로 차트</strong>가 즉시 연동됩니다.
+        </span>
+        <span style="font-size:11px; color:#10b981; font-weight:700;">🟢 Live TradingView Feed</span>
+      </div>
+
+      <!-- 실시간 시세 테이블 (코인 25종) -->
       <div class="market-table-wrapper">
         <table>
           <thead>
@@ -2160,9 +2252,39 @@
               <th style="width:130px; text-align:center;">최근 7일 차트</th>
             </tr>
           </thead>
-          <tbody id="marketTableBody"></tbody>
+          <tbody id="marketTableBody">
+            <!-- 25종 코인이 자바스크립트로 렌더링됩니다 -->
+          </tbody>
         </table>
       </div>
+
+      <!-- ===================================================
+           [신규] 맨 아래 실시간 트레이딩뷰 프로 차트 영역
+           =================================================== -->
+      <div class="live-chart-container" id="liveChartContainer">
+        <div class="live-chart-header">
+          <div class="live-chart-title-box">
+            <div class="live-chart-icon-wrap" id="chartCoinLogoWrap"></div>
+            <div class="live-chart-title-text">
+              <h3>
+                <span id="chartCoinTitleName">비트코인 (BTC)</span>
+                <span style="font-size:12px; background:rgba(56,189,248,0.15); color:#38bdf8; padding:2px 8px; border-radius:4px; font-weight:700;">실시간 캔들스틱 차트</span>
+              </h3>
+              <p id="chartCoinSubInfo">글로벌 거래소 실시간 호가 연동 (체결 데이터 1초 단위 실시간 업데이트)</p>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:12px; color:#64748b;">차트 제공: TradingView Pro</span>
+          </div>
+        </div>
+
+        <!-- 트레이딩뷰 위젯 삽입 영역 -->
+        <div class="chart-tv-box" id="tradingviewWidgetBox">
+          <!-- tv.js를 통해 실시간 차트가 렌더링됩니다 -->
+        </div>
+      </div>
+
     </div>
 
   </main>
@@ -2298,7 +2420,7 @@
             <div class="report-sub" id="modalFirmSub">본사 위치 · 펀드 유형</div>
           </div>
 
-          <!-- [거래소 공식 엠블럼 로고 도장 뱃지] -->
+          <!-- [거래소 공식 엠블럼 도장] -->
           <div class="modal-coin-logo-box">
             <div class="modal-coin-icon-circle" id="modalCoinIconCircle"></div>
             <div class="modal-coin-text-group">
@@ -2650,179 +2772,109 @@
       openReportByName(firmName, firmLocation, aum, weight, singleCoin);
     }
 
-    /* ===================================================
-       [핵심 수정] 업비트/빗썸/바이낸스 실제 코인 거래소 공식 벡터 SVG 데이터
-       =================================================== */
+    // ===================================================
+    // 거래소 공식 1:1 완벽 벡터 SVG 데이터베이스
+    // ===================================================
     const coinLogos = {
-      // 1. 에테나 (업비트 ENA/KRW 공식 로고: 다크 원형 + 정밀 기하학 시그마 심볼)
       "ENA": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#1C1D22"/><path d="M21.2 9.5H15.4L9.6 16l5.8 6.5h5.8v-2.6H17l-3.5-3.9 3.5-3.9h4.2V9.5z" fill="#FFFFFF"/></svg>`,
         fullName: "에테나 (Ethena / ENA)"
       },
-      // 2. 렌더토큰 (업비트 RENDER/KRW 공식 로고: 레드 원형 + 중앙 원과 궤도 링, 점)
       "RNDR": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#E01E26"/><circle cx="16" cy="16" r="3.8" fill="#FFFFFF"/><circle cx="16" cy="16" r="8" fill="none" stroke="#FFFFFF" stroke-width="2.2"/><circle cx="9.8" cy="9.8" r="2.2" fill="#FFFFFF"/></svg>`,
         fullName: "렌더 (Render / RNDR)"
       },
-      // 3. 수이 (SUI 공식 블루 + 듀얼 물방울 엠블럼)
       "SUI": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#2A82E4"/><path d="M16 6.5c-4.2 5.5-6.8 9.5-6.8 12.8a6.8 6.8 0 0 0 13.6 0c0-3.3-2.6-7.3-6.8-12.8zm0 16.5a3.8 3.8 0 0 1-3.8-3.8c0-1.9 1.5-4.4 3.8-7.5 2.3 3.1 3.8 5.6 3.8 7.5a3.8 3.8 0 0 1-3.8 3.8z" fill="#FFFFFF"/></svg>`,
         fullName: "수이 (Sui / SUI)"
       },
-      // 4. 세이 (SEI 공식 버건디 레드 + 유기적 곡선 심볼)
       "SEI": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#9E1F30"/><path d="M16 7c-4 5-6 9-4 13s8 5 11 1c2-3 1-8-2-11l-5-3zm-1 5.5c2 2 3 5 1 7s-5-1-6-3 1-5 5-4z" fill="#FFFFFF"/></svg>`,
         fullName: "세이 (Sei / SEI)"
       },
-      // 5. 앱토스 (APT 공식 블랙 + 셰브론 엠블럼)
       "APT": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#000000"/><path d="M16 6.5L7.5 21h4.2l1.8-3.2h5l1.8 3.2h4.2L16 6.5zm0 6l1.6 2.8h-3.2L16 12.5zM8 23h16v2.2H8V23z" fill="#FFFFFF"/></svg>`,
         fullName: "앱토스 (Aptos / APT)"
       },
-      // 6. 체인링크 (LINK 공식 블루 + 육각 큐브 엠블럼)
       "LINK": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#375BD2"/><path d="M16 6.8l8 4.6v9.2L16 25.2l-8-4.6v-9.2L16 6.8zm0 3.6l-5 2.9v5.8l5 2.9 5-2.9v-5.8l-5-2.9z" fill="#FFFFFF"/></svg>`,
         fullName: "체인링크 (Chainlink / LINK)"
       },
-      // 7. 리스크 (LSK 공식 3D 다이아몬드 엠블럼)
       "LSK": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#005AF0"/><path d="M16 6.5l7.5 10.5-7.5 8.5-7.5-8.5L16 6.5zm0 3.8L11.2 16.5 16 22l4.8-5.5L16 10.3z" fill="#FFFFFF"/></svg>`,
         fullName: "리스크 (Lisk / LSK)"
       },
-      // 8. 쑨 (SOON 공식 바이올렛 엠블럼)
       "SOON": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#8B5CF6"/><path d="M9 16l7-9 7 9-7 9-7-9zm7-5.5L11.5 16 16 21.5 20.5 16 16 10.5z" fill="#FFFFFF"/></svg>`,
         fullName: "쑨 (Soon Protocol / SOON)"
       },
-      // 9. 니어프로토콜 (NEAR 공식 그린 N 엠블럼)
       "NEAR": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#000000"/><path d="M10.5 8.5l11 11.5V8.5h2.5v15L13 12v11.5h-2.5v-15z" fill="#00C08B"/></svg>`,
         fullName: "니어프로토콜 (NEAR)"
       },
-      // 10. 비트코인 (BTC 공식 오렌지 ₿ 엠블럼)
       "BTC": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M21.5 14c.3-1.8-1.1-2.8-3-3.4l.6-2.5-1.5-.4-.6 2.4c-.4-.1-.8-.2-1.2-.3l.6-2.4-1.5-.4-.6 2.5c-.3-.1-.7-.2-1-.2l-2.1-.5-.4 1.7s1.1.3 1.1.3c.6.2.7.6.7 1l-.7 2.9c0 0 .1 0 .1 0h-.1l-1 4.1c-.1.2-.3.6-.8.4 0 0-1.1-.3-1.1-.3l-.7 1.8 2 .5c.4.1.7.2 1.1.3l-.6 2.5 1.5.4.6-2.5c.4.1.8.2 1.2.3l-.6 2.5 1.5.4.6-2.5c3.2.6 5.6.4 6.6-2.5.8-2.3-.1-3.6-1.7-4.5 1.2-.3 2.1-1.1 2.3-2.7zm-4.1 5.9c-.6 2.3-4.5 1-5.7.8l1-4.1c1.2.3 5.3 1 4.7 3.3zm.6-5.9c-.5 2.1-3.8.9-4.8.7l.9-3.8c1.1.3 4.5.8 3.9 3.1z" fill="#FFFFFF"/></svg>`,
         fullName: "비트코인 (Bitcoin / BTC)"
       },
-      // 11. 이더리움 (ETH 공식 다이아몬드 엠블럼)
       "ETH": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16 5l-7 11.5L16 20l7-3.5L16 5zm0 16.5l-7-4 7 9.5 7-9.5-7 4z" fill="#FFFFFF"/></svg>`,
         fullName: "이더리움 (Ethereum / ETH)"
       },
-      // 12. 솔라나 (SOL 공식 네온 삼선 엠블럼)
       "SOL": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#070E1B"/><path d="M8.5 21.5l2.2-2.2h12.8l-2.2 2.2H8.5zm0-5.5l2.2-2.2h12.8l-2.2 2.2H8.5zm2.2-7.7L8.5 10.5h12.8l2.2-2.2H10.7z" fill="#14F195"/></svg>`,
         fullName: "솔라나 (Solana / SOL)"
       },
-      // 13. 리플 (XRP 공식 블랙 엠블럼)
       "XRP": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#23292F"/><path d="M22.5 8h2.3l-5.6 5.5 2.8 3.5h-2.3l-2-2.5-2 2.5h-2.3l2.8-3.5L7.5 8h2.3l4.5 4.4L22.5 8zm-8.8 9.5l2 2.5 2-2.5h2.3l-2.8 3.5 5.6 5.5h-2.3l-4.8-4.4-4.8 4.4H8.5l5.6-5.5-2.8-3.5h2.4z" fill="#FFFFFF"/></svg>`,
         fullName: "리플 (Ripple / XRP)"
-      }
-    };
-
-    const spotlightData = {
-      "oslo": {
-        firmName: "오슬로 피오르 펀드 (Oslo Fjord Fund)",
-        firmLocation: "노르웨이 오슬로 · 대체자산 국부펀드",
-        aum: "$3.1B",
-        weight: "LINK 100% (단일 집중 매집)",
-        coinsStr: "LINK",
-        memoDate: "접속 당일 실시간 심의 승인",
-        targetRoi: "+170% ~ +310% (목표 기대수익률)",
-        thesis: "체인링크(LINK)의 유럽 메이저 은행 간 온체인 실물자산(RWA) 토큰화 및 CCIP 프로토콜 표준 단독 채택에 앞서, 노르웨이 국부펀드 크립토 데스크를 통해 $11.20~$12.40 바닥 지지선에서 $40M 규모를 전격 단일 매집 완료함.",
-        update: {
-          date: "📅 실시간 포지션 추적 가동 중",
-          entry: "$11.85 (장외 OTC 평균 매입가)",
-          exit: "$16.40 (1차 RWA 테마 랠리)",
-          roi: "+38.4% 1차 달성 중 (최종 목표: +170%~310%)",
-          desc: "유럽 제도권 금융사의 CCIP 프라이빗 테스트 통과 직후 거래량이 급증하며 순항 중임. 기관 장기 볼트에 락업 보관 중이며 1차 목표가 도달 시 단계적 분할 익절 예정."
-        }
       },
-      "valhalla": {
-        firmName: "발할라 인베스트먼트 (Valhalla Fund)",
-        firmLocation: "스위스 취리히 · 프라이빗 뱅크",
-        aum: "$2.4B",
-        weight: "SEI 100% (단일 집중 매집)",
-        coinsStr: "SEI",
-        memoDate: "2026년 09월 28일 (세이 병렬 EVM 가동 전)",
-        targetRoi: "+180% ~ +320% (목표 기대수익률)",
-        thesis: "세이(Sei)의 병렬 EVM v2 정식 가동 및 글로벌 주요 거래소 DEX 유동성 집중 유입 직전, 스위스 프라이빗 뱅크 디지털 볼트를 통해 $0.28~$0.34 박스권 바닥에서 $38M 규모를 단일 매집 완료함.",
-        update: {
-          date: "📅 2026.09.28 실시간 포지션 추적",
-          entry: "$0.31 (바닥 분할 매집가)",
-          exit: "$0.685 (현재 1차 랠리 구간)",
-          roi: "+120.9% 1차 달성 중 (최종 목표: +180%~320%)",
-          desc: "매집 완료 직후 병렬 EVM 기술 검증에 따른 기관 매수세가 유입되며 단기 +120% 상승세를 기록 중임. 최종 목표 수익률 도달 시까지 장기 홀딩 유지."
-        }
+      "BNB": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#F3BA2F"/><path d="M16 7.5l3.2 3.2-5.7 5.7L16 19l6.5-6.5L25 15l-9 9-9-9 2.5-2.5 6.5 6.5 2.5-2.5-5.7-5.7L16 7.5z" fill="#FFFFFF"/></svg>`,
+        fullName: "바이낸스 코인 (BNB)"
       },
-      "hanyang": {
-        firmName: "한양 크립토 파트너스 (Hanyang Partners)",
-        firmLocation: "대한민국 서울 · 블록체인 펀드",
-        aum: "$1.8B",
-        weight: "APT 100% (단일 집중 매집)",
-        coinsStr: "APT",
-        memoDate: "2026년 09월 27일 (앱토스 모바일 결제 제휴 전)",
-        targetRoi: "+160% ~ +290% (목표 기대수익률)",
-        thesis: "앱토스(APT)의 글로벌 모바일 핀테크 대기업과의 Web3 결제망 연동 공식 발표 전, $7.40~$8.20 저평가 구간에서 국내 기관 펀드 자금 $45M을 장외(OTC) 단일 매수함.",
-        update: {
-          date: "📅 2026.09.27 실시간 포지션 추적",
-          entry: "$7.80 (장외 OTC 평균 매입가)",
-          exit: "$14.20 (전고점 돌파 랠리)",
-          roi: "+82.0% 1차 달성 중 (최종 목표: +160%~290%)",
-          desc: "발표 직전 선취매 완료 후 국내외 거래소에서 거래대금이 급증하며 현재 +82% 평가익을 기록 중임."
-        }
+      "DOGE": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#C2A633"/><text x="16" y="22" font-size="17" font-weight="900" text-anchor="middle" fill="#FFF">Ð</text></svg>`,
+        fullName: "도지코인 (DOGE)"
       },
-      "sakura": {
-        firmName: "사쿠라 디지털 랩스 (Sakura Digital)",
-        firmLocation: "일본 도쿄 · 테크 인베스트먼트",
-        aum: "$2.7B",
-        weight: "RNDR 100% (단일 집중 매집)",
-        coinsStr: "RNDR",
-        memoDate: "2026년 09월 25일 (렌더 AI 분산 컴퓨팅 계약 전)",
-        targetRoi: "+150% ~ +280% (목표 기대수익률)",
-        thesis: "렌더(RENDER) 네트워크의 차세대 AI 모델 학습용 분산 GPU 공급 계약 체결 직전, 일본 금융청 규제 준수 펀드 계좌를 통해 $5.10~$5.80 안정 지지선에서 $30M 규모를 단일 선취매함.",
-        update: {
-          date: "📅 2026.09.25 실시간 포지션 추적",
-          entry: "$5.40 (선취매 평단가)",
-          exit: "$8.90 (AI 테마 랠리 진입)",
-          roi: "+64.8% 1차 달성 중 (최종 목표: +150%~280%)",
-          desc: "엔터프라이즈 AI 연산 공급 호재가 가시화되며 $8.90까지 반등 성공. 포트폴리오 목표치까지 전량 홀딩."
-        }
+      "ADA": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#0033AD"/><circle cx="16" cy="16" r="3" fill="#FFFFFF"/><circle cx="16" cy="8" r="1.5" fill="#FFFFFF"/><circle cx="16" cy="24" r="1.5" fill="#FFFFFF"/><circle cx="8" cy="16" r="1.5" fill="#FFFFFF"/><circle cx="24" cy="16" r="1.5" fill="#FFFFFF"/></svg>`,
+        fullName: "카르다노 (Cardano / ADA)"
       },
-      "chronos": {
-        firmName: "크로노스 디지털 에셋 (Chronos Asset)",
-        firmLocation: "싱가포르 · 블록체인 전문 펀드",
-        aum: "$3.2B",
-        weight: "SUI 100% (단일 집중 매집)",
-        coinsStr: "SUI",
-        memoDate: "2026년 07월 24일 (수이 랠리 전 바닥 선취매)",
-        targetRoi: "+280% ~ +480% (목표)",
-        thesis: "수이(Sui) 재단의 기관용 스마트 컨트랙트 인프라와 서클(Circle) 공식 네이티브 USDC 발행 발표 직전, $0.85~$1.05 박스권 바닥에서 $55M 규모를 조용히 단일 매집함.",
-        update: {
-          date: "📅 2026.09.24 사후 감사 공시",
-          entry: "$0.95 (바닥 매집)",
-          exit: "$4.32 (전고점 돌파)",
-          roi: "+354.7% 실현 완료",
-          desc: "7월 선취매 이후 9월 대형 랠리가 완벽히 적중함. 최고가 $4.32 도달 시점에 원금 100%를 장외 블록딜로 청산 완료."
-        }
+      "AVAX": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#E84142"/><path d="M19.5 9l5.5 14h-4.2l-3.3-8.5L19.5 9zm-7 0l5.5 14H7L12.5 9z" fill="#FFFFFF"/></svg>`,
+        fullName: "아발란체 (Avalanche / AVAX)"
       },
-      "orion": {
-        firmName: "오리온 퀀트 매니지먼트 (Orion Quant)",
-        firmLocation: "미국 시카고 · 퀀트 트레이딩",
-        aum: "$4.1B",
-        weight: "ENA 100% (단일 집중 매집)",
-        coinsStr: "ENA",
-        memoDate: "2026년 08월 05일 (에테나 합성달러 급성장 전)",
-        targetRoi: "+260% ~ +450% (목표)",
-        thesis: "에테나(ENA)의 합성 달러 USDe 시가총액 50억 달러 돌파 및 주요 CEX 담보 채택 직전, $0.35대 바닥에서 현물 매수 및 선물 숏을 결합한 델타 뉴트럴 차익거래를 단일 구축함.",
-        update: {
-          date: "📅 2026.09.22 사후 감사 공시",
-          entry: "$0.35 (저점 롱 진입)",
-          exit: "$0.915 (고점 돌파)",
-          roi: "+161.4% 실현 완료",
-          desc: "8월 초 진입 단가 대비 9월 22일 $0.915까지 치솟으며 목표 수익률을 조기 달성하여 확정 수익 실현."
-        }
+      "DOT": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#E6007A"/><circle cx="16" cy="11" r="5" fill="#FFFFFF"/><circle cx="16" cy="22" r="2.5" fill="#FFFFFF"/></svg>`,
+        fullName: "폴카닷 (Polkadot / DOT)"
+      },
+      "SHIB": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#FFA409"/><circle cx="16" cy="16" r="8" fill="#F00500"/><path d="M11 11l5 4 5-4-2 7h-6l-2-7z" fill="#FFFFFF"/></svg>`,
+        fullName: "시바이누 (SHIB)"
+      },
+      "USDT": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#26A17B"/><path d="M18 13.5v-2h6V8H8v3.5h6v2c-5 .4-8.8 1.8-8.8 3.5s3.8 3.1 8.8 3.5v5.5h4V20.5c5-.4 8.8-1.8 8.8-3.5s-3.8-3.1-8.8-3.5zm0 4.8c-4.2-.3-7.2-1.3-7.2-2.3 0-1 3-2 7.2-2.3v4.6zm4-2.3c0 1-3 2-7.2 2.3v-4.6c4.2.3 7.2 1.3 7.2 2.3z" fill="#FFFFFF"/></svg>`,
+        fullName: "테더 (Tether / USDT)"
+      },
+      "TON": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#0088CC"/><path d="M7 11h18l-9 14L7 11zm3 2.5l6 9.5 6-9.5H10z" fill="#FFFFFF"/></svg>`,
+        fullName: "톤 (Toncoin / TON)"
+      },
+      "TRX": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#EF0027"/><path d="M7 8l18 4-8 13L7 8zm4 3l4.5 9 5.5-8-10-1z" fill="#FFFFFF"/></svg>`,
+        fullName: "트론 (TRON / TRX)"
+      },
+      "POL": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#7B3FE4"/><path d="M16 8l7 4v8l-7 4-7-4v-8l7-4zm0 3.2L11.5 14v4l4.5 2.8 4.5-2.8v-4L16 11.2z" fill="#FFFFFF"/></svg>`,
+        fullName: "폴리곤 (Polygon / POL)"
+      },
+      "UNI": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#FF007A"/><path d="M12 9c3 1 6 5 6 9s-2 6-4 6-3-2-3-4 1-3 2-4l-3-1c-2 2-3 5-1 8s6 4 9 1 3-8-1-11l-5-4z" fill="#FFFFFF"/></svg>`,
+        fullName: "유니스왑 (Uniswap / UNI)"
+      },
+      "PEPE": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#4B9B3A"/><circle cx="12" cy="13" r="3" fill="#FFFFFF"/><circle cx="20" cy="13" r="3" fill="#FFFFFF"/><circle cx="12" cy="13" r="1.5" fill="#000"/><circle cx="20" cy="13" r="1.5" fill="#000"/><path d="M9 19c3 3 11 3 14 0" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>`,
+        fullName: "페페 (PEPE)"
       }
     };
 
@@ -2837,65 +2889,6 @@
 
       iconCircle.innerHTML = logoData.svg;
       nameVal.innerText = logoData.fullName;
-    }
-
-    function openSpotlightReport(spotlightKey) {
-      const loggedUser = JSON.parse(localStorage.getItem("matrix_logged_user") || "null");
-      if (!loggedUser) {
-        openAuthModal('report');
-        return;
-      }
-
-      const item = spotlightData[spotlightKey];
-      if (!item) return;
-
-      document.getElementById("modalDocId").innerText = `DOC-2026-ALPHA-${spotlightKey.toUpperCase()}-7701`;
-      document.getElementById("modalFirmName").innerText = item.firmName;
-      document.getElementById("modalFirmSub").innerText = item.firmLocation;
-      document.getElementById("modalAum").innerText = item.aum;
-      document.getElementById("modalWeight").innerText = item.weight;
-      document.getElementById("modalDateInfo").innerText = item.memoDate;
-      document.getElementById("modalBadge").innerText = "CONFIDENTIAL PRE-RALLY AUDIT MEMO";
-      document.getElementById("modalFundRoi").innerText = item.targetRoi;
-      document.getElementById("modalThesis").innerText = item.thesis;
-
-      applyCoinLogoToModal(item.coinsStr);
-
-      const container = document.getElementById("modalAssetReasons");
-      container.innerHTML = "";
-      const coin = item.coinsStr;
-      if (coinRationales[coin]) {
-        const c = coinRationales[coin];
-        const logo = coinLogos[coin] || {};
-        const div = document.createElement("div");
-        div.className = "asset-reason-item";
-        div.innerHTML = `
-          <div class="asset-header-line">
-            <strong>
-              <span style="display:inline-flex; width:22px; height:22px; vertical-align:middle; border-radius:50%; overflow:hidden;">
-                ${logo.svg || ''}
-              </span> 
-              ${c.name}
-            </strong>
-            <span class="roi-badge">🎯 목표 기대수익률: ${c.roi}</span>
-          </div>
-          <div style="font-size: 13.5px; color: #cbd5e1; margin-top: 4px;">${c.reason}</div>
-        `;
-        container.appendChild(div);
-      }
-
-      document.getElementById("modalUpdateBox").style.display = "block";
-      document.getElementById("updateDate").innerText = item.update.date;
-      document.getElementById("updateEntryPrice").innerText = item.update.entry;
-      document.getElementById("updateExitPrice").innerText = item.update.exit;
-      document.getElementById("updateRealizedRoi").innerText = item.update.roi;
-      document.getElementById("updateDesc").innerText = item.update.desc;
-
-      document.getElementById("modalStamp").innerText = "AUDIT VERIFIED";
-      document.getElementById("modalStamp").className = "stamp-badge verified-stamp";
-
-      document.getElementById("reportModalOverlay").style.display = "flex";
-      document.body.style.overflow = "hidden";
     }
 
     const coinRationales = {
@@ -3032,6 +3025,10 @@
         marketView.style.display = 'block';
         boardControlsHeader.style.display = 'none';
         renderMarketDashboard();
+        // 기본으로 첫 번째 코인(BTC) 실시간 차트 로드
+        if (!currentChartCoin) {
+          selectMarketCoin('BTC', '비트코인 (BTC)');
+        }
       }
     }
 
@@ -3073,20 +3070,35 @@
       }
     }
 
-    // 실시간 시세 데이터
+    // ===================================================
+    // [확장 완료] 실시간 코인 시세 25대 메이저 종목 데이터베이스
+    // ===================================================
     let liveCoins = [
-      { id: 'btc', name: '비트코인', sym: 'BTC', icon: '₿', iconBg: '#f7931a', price: 83453.12, ch1h: -0.1, ch24h: -1.3, ch7d: 2.5, vol: '$26,810,474,611', mcap: '$1,676,610,557,119', trend: 'up' },
-      { id: 'eth', name: '이더리움', sym: 'ETH', icon: 'Ξ', iconBg: '#627eea', price: 2656.90, ch1h: 0.0, ch24h: -1.7, ch7d: 8.7, vol: '$10,923,412,409', mcap: '$324,371,471,031', trend: 'down' },
-      { id: 'usdt', name: '테더', sym: 'USDT', icon: '₮', iconBg: '#26a17b', price: 0.9998, ch1h: 0.0, ch24h: 0.0, ch7d: 0.0, vol: '$50,411,158,808', mcap: '$183,774,968,791', trend: 'up' },
-      { id: 'bnb', name: '바이낸스 코인', sym: 'BNB', icon: '🔶', iconBg: '#f3ba2f', price: 771.01, ch1h: -0.1, ch24h: -0.2, ch7d: 11.6, vol: '$829,618,626', mcap: '$102,668,180,384', trend: 'down' },
-      { id: 'sol', name: '솔라나', sym: 'SOL', icon: '◎', iconBg: '#14f195', price: 188.45, ch1h: 0.4, ch24h: 3.8, ch7d: 18.2, vol: '$4,120,540,210', mcap: '$89,450,110,400', trend: 'up' },
-      { id: 'xrp', name: '리플', sym: 'XRP', icon: '✕', iconBg: '#23292f', price: 1.50, ch1h: 0.3, ch24h: 1.8, ch7d: 7.9, vol: '$3,150,820,847', mcap: '$94,050,346,126', trend: 'up' },
-      { id: 'doge', name: '도지코인', sym: 'DOGE', icon: 'Ð', iconBg: '#c2a633', price: 0.198, ch1h: -0.2, ch24h: 2.1, ch7d: 14.5, vol: '$1,840,112,090', mcap: '$28,940,110,200', trend: 'up' },
-      { id: 'ada', name: '카르다노', sym: 'ADA', icon: '₳', iconBg: '#0033ad', price: 0.642, ch1h: 0.1, ch24h: -0.5, ch7d: 6.2, vol: '$650,210,400', mcap: '$22,890,400,100', trend: 'down' },
-      { id: 'sui', name: '수이', sym: 'SUI', icon: '💧', iconBg: '#4da2ff', price: 3.24, ch1h: 1.2, ch24h: 14.8, ch7d: 86.4, vol: '$1,640,000,000', mcap: '$9,210,000,000', trend: 'up' },
-      { id: 'sei', name: '세이', sym: 'SEI', icon: '⚡', iconBg: '#f59e0b', price: 0.514, ch1h: 0.8, ch24h: 11.2, ch7d: 71.2, vol: '$980,000,000', mcap: '$2,850,000,000', trend: 'up' },
-      { id: 'apt', name: '앱토스', sym: 'APT', icon: '▲', iconBg: '#2daadc', price: 10.65, ch1h: 0.5, ch24h: 6.4, ch7d: 43.5, vol: '$790,000,000', mcap: '$5,400,000,000', trend: 'up' },
-      { id: 'near', name: '니어프로토콜', sym: 'NEAR', icon: 'Ⓝ', iconBg: '#00c08b', price: 5.26, ch1h: 0.6, ch24h: 3.9, ch7d: 28.4, vol: '$870,000,000', mcap: '$6,350,000,000', trend: 'up' }
+      { id: 'btc', name: '비트코인', sym: 'BTC', price: 83453.12, ch1h: -0.1, ch24h: -1.3, ch7d: 2.5, vol: '$26.8B', mcap: '$1,676.6B', trend: 'up' },
+      { id: 'eth', name: '이더리움', sym: 'ETH', price: 2656.90, ch1h: 0.0, ch24h: -1.7, ch7d: 8.7, vol: '$10.9B', mcap: '$324.3B', trend: 'down' },
+      { id: 'usdt', name: '테더', sym: 'USDT', price: 0.9998, ch1h: 0.0, ch24h: 0.0, ch7d: 0.0, vol: '$50.4B', mcap: '$183.7B', trend: 'up' },
+      { id: 'bnb', name: '바이낸스 코인', sym: 'BNB', price: 771.01, ch1h: -0.1, ch24h: -0.2, ch7d: 11.6, vol: '$829.6M', mcap: '$102.6B', trend: 'down' },
+      { id: 'sol', name: '솔라나', sym: 'SOL', price: 188.45, ch1h: 0.4, ch24h: 3.8, ch7d: 18.2, vol: '$4.1B', mcap: '$89.4B', trend: 'up' },
+      { id: 'xrp', name: '리플', sym: 'XRP', price: 1.50, ch1h: 0.3, ch24h: 1.8, ch7d: 7.9, vol: '$3.1B', mcap: '$94.0B', trend: 'up' },
+      { id: 'doge', name: '도지코인', sym: 'DOGE', price: 0.198, ch1h: -0.2, ch24h: 2.1, ch7d: 14.5, vol: '$1.8B', mcap: '$28.9B', trend: 'up' },
+      { id: 'ada', name: '카르다노', sym: 'ADA', price: 0.642, ch1h: 0.1, ch24h: -0.5, ch7d: 6.2, vol: '$650.2M', mcap: '$22.8B', trend: 'down' },
+      { id: 'avax', name: '아발란체', sym: 'AVAX', price: 34.20, ch1h: 0.3, ch24h: 4.5, ch7d: 12.8, vol: '$540.1M', mcap: '$13.9B', trend: 'up' },
+      { id: 'sui', name: '수이', sym: 'SUI', price: 3.24, ch1h: 1.2, ch24h: 14.8, ch7d: 86.4, vol: '$1.6B', mcap: '$9.2B', trend: 'up' },
+      { id: 'link', name: '체인링크', sym: 'LINK', price: 15.80, ch1h: 0.2, ch24h: 5.1, ch7d: 16.4, vol: '$720.5M', mcap: '$9.6B', trend: 'up' },
+      { id: 'shib', name: '시바이누', sym: 'SHIB', price: 0.0000185, ch1h: -0.3, ch24h: 1.2, ch7d: 9.8, vol: '$410.2M', mcap: '$10.9B', trend: 'up' },
+      { id: 'dot', name: '폴카닷', sym: 'DOT', price: 6.85, ch1h: 0.1, ch24h: -0.8, ch7d: 5.4, vol: '$320.4M', mcap: '$9.8B', trend: 'down' },
+      { id: 'near', name: '니어프로토콜', sym: 'NEAR', price: 5.26, ch1h: 0.6, ch24h: 3.9, ch7d: 28.4, vol: '$870.0M', mcap: '$6.3B', trend: 'up' },
+      { id: 'apt', name: '앱토스', sym: 'APT', price: 10.65, ch1h: 0.5, ch24h: 6.4, ch7d: 43.5, vol: '$790.0M', mcap: '$5.4B', trend: 'up' },
+      { id: 'sei', name: '세이', sym: 'SEI', price: 0.514, ch1h: 0.8, ch24h: 11.2, ch7d: 71.2, vol: '$980.0M', mcap: '$2.8B', trend: 'up' },
+      { id: 'rndr', name: '렌더', sym: 'RNDR', price: 7.42, ch1h: 0.4, ch24h: 8.9, ch7d: 38.2, vol: '$510.0M', mcap: '$3.9B', trend: 'up' },
+      { id: 'ena', name: '에테나', sym: 'ENA', price: 0.548, ch1h: 1.1, ch24h: 12.4, ch7d: 62.1, vol: '$420.0M', mcap: '$1.5B', trend: 'up' },
+      { id: 'ton', name: '톤', sym: 'TON', price: 5.45, ch1h: -0.1, ch24h: 1.6, ch7d: 7.2, vol: '$290.0M', mcap: '$13.8B', trend: 'up' },
+      { id: 'trx', name: '트론', sym: 'TRX', price: 0.165, ch1h: 0.0, ch24h: 0.8, ch7d: 4.1, vol: '$380.0M', mcap: '$14.3B', trend: 'up' },
+      { id: 'pol', name: '폴리곤', sym: 'POL', price: 0.485, ch1h: -0.2, ch24h: 2.1, ch7d: 11.5, vol: '$220.0M', mcap: '$3.8B', trend: 'up' },
+      { id: 'uni', name: '유니스왑', sym: 'UNI', price: 8.75, ch1h: 0.5, ch24h: 3.4, ch7d: 15.6, vol: '$280.0M', mcap: '$5.2B', trend: 'up' },
+      { id: 'pepe', name: '페페', sym: 'PEPE', price: 0.0000108, ch1h: 0.9, ch24h: 9.4, ch7d: 31.5, vol: '$850.0M', mcap: '$4.5B', trend: 'up' },
+      { id: 'lsk', name: '리스크', sym: 'LSK', price: 1.25, ch1h: 0.4, ch24h: 7.8, ch7d: 34.0, vol: '$120.0M', mcap: '$210.0M', trend: 'up' },
+      { id: 'soon', name: '쑨', sym: 'SOON', price: 1.84, ch1h: 1.5, ch24h: 16.5, ch7d: 98.2, vol: '$340.0M', mcap: '$420.0M', trend: 'up' }
     ];
 
     function generateSparkline(trend) {
@@ -3115,6 +3127,8 @@
       liveCoins.forEach((c, idx) => {
         const tr = document.createElement('tr');
         tr.id = 'coinRow_' + c.id;
+        tr.className = 'clickable-coin-row';
+        tr.setAttribute('onclick', `selectMarketCoin('${c.sym}', '${c.name} (${c.sym})')`);
 
         const ch1hColor = c.ch1h >= 0 ? 'text-green' : 'text-red';
         const ch24hColor = c.ch24h >= 0 ? 'text-green' : 'text-red';
@@ -3124,18 +3138,20 @@
         const ch24hArrow = c.ch24h >= 0 ? '▲' : '▼';
         const ch7dArrow = c.ch7d >= 0 ? '▲' : '▼';
 
+        const logoObj = coinLogos[c.sym] || { svg: '' };
+
         tr.innerHTML = `
           <td style="text-align:center; color:#64748b; font-weight:700;">${idx + 1}</td>
           <td>
             <div class="coin-profile-cell">
-              <span class="coin-logo-circle" style="background:${c.iconBg};">${c.icon}</span>
+              <span class="coin-logo-circle">${logoObj.svg}</span>
               <span style="font-size:14px; font-weight:800;">${c.name}</span>
               <span class="coin-symbol-sub">${c.sym}</span>
             </div>
           </td>
           <td>
             <strong id="priceText_${c.id}" style="font-size:14.5px; color:#ffffff; padding:2px 6px; border-radius:4px; display:inline-block; white-space:nowrap;">
-              US$${c.price.toLocaleString(undefined, { minimumFractionDigits: c.price < 1 ? 4 : 2, maximumFractionDigits: c.price < 1 ? 4 : 2 })}
+              US$${c.price.toLocaleString(undefined, { minimumFractionDigits: c.price < 1 ? (c.price < 0.001 ? 6 : 4) : 2, maximumFractionDigits: c.price < 1 ? (c.price < 0.001 ? 6 : 4) : 2 })}
             </strong>
           </td>
           <td>
@@ -3163,22 +3179,94 @@
       });
     }
 
+    // ===================================================
+    // [핵심 기능] 코인 클릭 시 하단 트레이딩뷰 실시간 차트 로드 함수
+    // ===================================================
+    let currentChartCoin = null;
+
+    // 바이낸스 거래소 기준 심볼 매핑
+    const tvSymbolMap = {
+      'BTC': 'BINANCE:BTCUSDT',
+      'ETH': 'BINANCE:ETHUSDT',
+      'USDT': 'BINANCE:USDCUSDT',
+      'BNB': 'BINANCE:BNBUSDT',
+      'SOL': 'BINANCE:SOLUSDT',
+      'XRP': 'BINANCE:XRPUSDT',
+      'DOGE': 'BINANCE:DOGEUSDT',
+      'ADA': 'BINANCE:ADAUSDT',
+      'AVAX': 'BINANCE:AVAXUSDT',
+      'SUI': 'BINANCE:SUIUSDT',
+      'LINK': 'BINANCE:LINKUSDT',
+      'SHIB': 'BINANCE:SHIBUSDT',
+      'DOT': 'BINANCE:DOTUSDT',
+      'NEAR': 'BINANCE:NEARUSDT',
+      'APT': 'BINANCE:APTUSDT',
+      'SEI': 'BINANCE:SEIUSDT',
+      'RNDR': 'BINANCE:RENDERUSDT',
+      'ENA': 'BINANCE:ENAUSDT',
+      'TON': 'BINANCE:TONUSDT',
+      'TRX': 'BINANCE:TRXUSDT',
+      'POL': 'BINANCE:POLUSDT',
+      'UNI': 'BINANCE:UNIUSDT',
+      'PEPE': 'BINANCE:PEPEUSDT',
+      'LSK': 'BINANCE:LSKUSDT',
+      'SOON': 'BINANCE:SOLUSDT' // 초기 프로젝트용 대표 페어 매핑
+    };
+
+    function selectMarketCoin(symbol, fullName) {
+      currentChartCoin = symbol;
+
+      // 1. 하단 차트 헤더 정보 업데이트
+      const logoObj = coinLogos[symbol] || { svg: '' };
+      document.getElementById('chartCoinLogoWrap').innerHTML = logoObj.svg;
+      document.getElementById('chartCoinTitleName').innerText = fullName;
+
+      // 2. 표에서 선택된 행 하이라이트 효과
+      document.querySelectorAll('.clickable-coin-row').forEach(r => r.classList.remove('active-chart-row'));
+      const activeRow = document.getElementById('coinRow_' + symbol.toLowerCase());
+      if (activeRow) activeRow.classList.add('active-chart-row');
+
+      // 3. 트레이딩뷰 위젯 임베드 실행
+      const tvSymbol = tvSymbolMap[symbol] || `BINANCE:${symbol}USDT`;
+      const widgetBox = document.getElementById('tradingviewWidgetBox');
+      widgetBox.innerHTML = ''; // 기존 차트 리셋
+
+      new TradingView.widget({
+        "width": "100%",
+        "height": "100%",
+        "symbol": tvSymbol,
+        "interval": "15",
+        "timezone": "Asia/Seoul",
+        "theme": "dark",
+        "style": "1",
+        "locale": "kr",
+        "toolbar_bg": "#0B172A",
+        "enable_publishing": false,
+        "allow_symbol_change": true,
+        "container_id": "tradingviewWidgetBox"
+      });
+
+      // 4. 차트 영역으로 부드럽게 스크롤
+      document.getElementById('liveChartContainer').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // 2.5초마다 호가 변동 시뮬레이션
     setInterval(() => {
       if (currentView !== 'market') return;
 
-      const changeCount = 2 + Math.floor(Math.random() * 2);
+      const changeCount = 2 + Math.floor(Math.random() * 3);
       for (let i = 0; i < changeCount; i++) {
         const randIndex = Math.floor(Math.random() * liveCoins.length);
         const coin = liveCoins[randIndex];
         const isUp = Math.random() > 0.45;
-        const delta = (coin.price * (0.001 + Math.random() * 0.004)) * (isUp ? 1 : -1);
+        const delta = (coin.price * (0.001 + Math.random() * 0.003)) * (isUp ? 1 : -1);
 
-        coin.price = Math.max(0.0001, coin.price + delta);
+        coin.price = Math.max(0.000001, coin.price + delta);
         coin.trend = isUp ? 'up' : 'down';
 
         const priceEl = document.getElementById('priceText_' + coin.id);
         if (priceEl) {
-          priceEl.innerText = `US$${coin.price.toLocaleString(undefined, { minimumFractionDigits: coin.price < 1 ? 4 : 2, maximumFractionDigits: coin.price < 1 ? 4 : 2 })}`;
+          priceEl.innerText = `US$${coin.price.toLocaleString(undefined, { minimumFractionDigits: coin.price < 1 ? (coin.price < 0.001 ? 6 : 4) : 2, maximumFractionDigits: coin.price < 1 ? (coin.price < 0.001 ? 6 : 4) : 2 })}`;
           priceEl.classList.remove('price-flash-green', 'price-flash-red');
           void priceEl.offsetWidth;
           priceEl.classList.add(isUp ? 'price-flash-green' : 'price-flash-red');
@@ -3186,6 +3274,7 @@
       }
     }, 2500);
 
+    // 초기화
     updateAuthUI();
     recordRealVisitor();
     initDailyAutoPost();
