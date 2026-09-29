@@ -2411,99 +2411,135 @@
     const MASTER_SECURITY_CODE = "JMC1016";
     let pendingReportRow = null;
 
-    // 방문자 카운팅
-    async function recordRealVisitor() {
-      const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-      const sessionKey = 'matrix_visited_' + todayStr;
-      const isNewVisitorToday = !sessionStorage.getItem(sessionKey);
+   // ==========================================
+// [교체 시작] 방문자 카운팅 & 관리자 관제탑 실시간 엔진
+// ==========================================
+const COUNTER_NAMESPACE = "cryptofund_matrix_live";
 
-      let visitLogs = JSON.parse(localStorage.getItem('matrix_admin_logs') || '[]');
-      const nowTime = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      const deviceType = navigator.userAgent.includes('Mobile') ? '📱 모바일 스마트폰' : '💻 PC 데스크톱';
+// 방문자 기록 함수 (CounterAPI 글로벌 서버 동기화)
+async function recordRealVisitor() {
+  const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const sessionKey = 'matrix_visited_' + todayStr;
+  const isNewVisitorToday = !sessionStorage.getItem(sessionKey);
+  
+  let visitLogs = JSON.parse(localStorage.getItem('matrix_admin_logs') || '[]');
+  const nowTime = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const deviceType = navigator.userAgent.includes('Mobile') ? '📱 모바일 스마트폰' : '💻 PC 데스크톱';
 
-      if (isNewVisitorToday) {
-        sessionStorage.setItem(sessionKey, '1');
-        visitLogs.unshift({
-          time: nowTime,
-          device: deviceType,
-          status: '정상 유입 완료 (보안 통과)'
-        });
-        if (visitLogs.length > 8) visitLogs.pop();
-        localStorage.setItem('matrix_admin_logs', JSON.stringify(visitLogs));
-      }
+  // 오늘 첫 방문자 접속 로그 로컬 저장
+  if (isNewVisitorToday) {
+    sessionStorage.setItem(sessionKey, '1');
+    visitLogs.unshift({ time: nowTime, device: deviceType, status: '정상 유입 완료 (보안 통과)' });
+    if (visitLogs.length > 8) visitLogs.pop();
+    localStorage.setItem('matrix_admin_logs', JSON.stringify(visitLogs));
+  }
 
-      try {
-        const resTotal = await fetch('https://countapi.mileshilliard.com/api/v1/hit/cf_matrix_total_jmc');
-        const dataTotal = await resTotal.json();
-        if (dataTotal && dataTotal.value) {
-          localStorage.setItem('matrix_total_visitors', dataTotal.value);
-        }
-
-        if (isNewVisitorToday) {
-          const resToday = await fetch('https://countapi.mileshilliard.com/api/v1/hit/cf_matrix_today_' + todayStr);
-          const dataToday = await resToday.json();
-          if (dataToday && dataToday.value) {
-            localStorage.setItem('matrix_today_visitors', dataToday.value);
-          }
-        }
-      } catch (err) {
-        let currentTotal = parseInt(localStorage.getItem('matrix_total_visitors') || '142');
-        let currentToday = parseInt(localStorage.getItem('matrix_today_visitors') || '19');
-        if (isNewVisitorToday) {
-          currentTotal++;
-          currentToday++;
-          localStorage.setItem('matrix_total_visitors', currentTotal);
-          localStorage.setItem('matrix_today_visitors', currentToday);
-        }
-      }
+  try {
+    // 1. 총 누적 방문자 1 증가
+    const resTotal = await fetch(`https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/total/up`);
+    const dataTotal = await resTotal.json();
+    if (dataTotal && typeof dataTotal.count === 'number') {
+      localStorage.setItem('matrix_total_visitors', dataTotal.count);
     }
 
-    function openAdminConsole() {
-      const loggedUser = JSON.parse(localStorage.getItem("matrix_logged_user") || "null");
-      if (!loggedUser) {
-        const inputCode = prompt("🔒 [관리자 전용 보안 구역]\n\n비밀 관리자 마스터 코드(Security Code)를 입력하세요:");
-        if (!inputCode) return;
-        if (inputCode.trim().toUpperCase() !== MASTER_SECURITY_CODE) {
-          alert("⚠️ 접근 거부: 올바른 관리자 보안 코드가 아닙니다.");
-          return;
-        }
-      }
-      refreshAdminStats();
-      document.getElementById("adminModalOverlay").style.display = "flex";
-      document.body.style.overflow = "hidden";
+    // 2. 오늘 방문자수: 오늘 첫 방문일 때만 +1 증가(up), 재방문은 현재 값만 조회
+    const todayAction = isNewVisitorToday ? 'up' : '';
+    const resToday = await fetch(`https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/today_${todayStr}/${todayAction}`);
+    const dataToday = await resToday.json();
+    if (dataToday && typeof dataToday.count === 'number') {
+      localStorage.setItem('matrix_today_visitors', dataToday.count);
     }
-
-    function closeAdminModal() {
-      document.getElementById("adminModalOverlay").style.display = "none";
-      document.body.style.overflow = "";
+  } catch (err) {
+    // 오프라인이거나 통신 장애 시 로컬 임시 집계
+    let currentTotal = parseInt(localStorage.getItem('matrix_total_visitors') || '142');
+    let currentToday = parseInt(localStorage.getItem('matrix_today_visitors') || '19');
+    if (isNewVisitorToday) {
+      currentTotal++;
+      currentToday++;
+      localStorage.setItem('matrix_total_visitors', currentTotal);
+      localStorage.setItem('matrix_today_visitors', currentToday);
     }
+  }
+}
 
-    function closeAdminModalOnOverlay(event) {
-      if (event.target.id === "adminModalOverlay") closeAdminModal();
+// [핵심] 페이지 접속 시 방문자 카운터를 즉시 자동 가동 (이 코드가 누락되어 집계가 안 되던 상태였습니다)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', recordRealVisitor);
+} else {
+  recordRealVisitor();
+}
+
+// 관리자 관제탑 열기
+function openAdminConsole() {
+  const loggedUser = JSON.parse(localStorage.getItem("matrix_logged_user") || "null");
+  if (!loggedUser) {
+    const inputCode = prompt("🔒 [관리자 전용 보안 구역]\n\n비밀 관리자 마스터 코드(Security Code)를 입력하세요:");
+    if (!inputCode) return;
+    if (inputCode.trim().toUpperCase() !== MASTER_SECURITY_CODE) {
+      alert("⚠️ 접근 거부: 올바른 관리자 보안 코드가 아닙니다.");
+      return;
     }
+  }
+  refreshAdminStats();
+  document.getElementById("adminModalOverlay").style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
 
-    function refreshAdminStats() {
-      const todayVisits = localStorage.getItem('matrix_today_visitors') || '19';
-      const totalVisits = localStorage.getItem('matrix_total_visitors') || '142';
-      
-      document.getElementById("adminTodayVisits").innerText = Number(todayVisits).toLocaleString() + '명';
-      document.getElementById("adminTotalVisits").innerText = Number(totalVisits).toLocaleString() + '명';
+// 관리자 관제탑 닫기
+function closeAdminModal() {
+  document.getElementById("adminModalOverlay").style.display = "none";
+  document.body.style.overflow = "";
+}
 
-      const logs = JSON.parse(localStorage.getItem('matrix_admin_logs') || '[]');
-      const logContainer = document.getElementById("adminLogList");
-      logContainer.innerHTML = "";
+function closeAdminModalOnOverlay(event) {
+  if (event.target.id === "adminModalOverlay") closeAdminModal();
+}
 
-      if (logs.length === 0) {
-        logContainer.innerHTML = "<div class='admin-log-row'><span>실시간 감시 중...</span><span>접속 대기</span></div>";
-      } else {
-        logs.forEach(item => {
-          const div = document.createElement("div");
-          div.className = "admin-log-row";
-          div.innerHTML = `<span>${item.time} (${item.device})</span><span style="color:#10b981;">${item.status}</span>`;
-          logContainer.appendChild(div);
-        });
-      }
+// 관리자 관제탑 새로고침 버튼 (클라우드 서버에서 실시간 숫자 조회)
+async function refreshAdminStats() {
+  const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  
+  try {
+    const [resTotal, resToday] = await Promise.all([
+      fetch(`https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/total/`),
+      fetch(`https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/today_${todayStr}/`)
+    ]);
+    const dataTotal = await resTotal.json();
+    const dataToday = await resToday.json();
+    if (dataTotal && typeof dataTotal.count === 'number') {
+      localStorage.setItem('matrix_total_visitors', dataTotal.count);
     }
+    if (dataToday && typeof dataToday.count === 'number') {
+      localStorage.setItem('matrix_today_visitors', dataToday.count);
+    }
+  } catch (e) {
+    console.warn("실시간 데이터 조회 대기 중");
+  }
+
+  const todayVisits = localStorage.getItem('matrix_today_visitors') || '19';
+  const totalVisits = localStorage.getItem('matrix_total_visitors') || '142';
+
+  document.getElementById("adminTodayVisits").innerText = Number(todayVisits).toLocaleString() + '명';
+  document.getElementById("adminTotalVisits").innerText = Number(totalVisits).toLocaleString() + '명';
+
+  const logs = JSON.parse(localStorage.getItem('matrix_admin_logs') || '[]');
+  const logContainer = document.getElementById("adminLogList");
+  logContainer.innerHTML = "";
+
+  if (logs.length === 0) {
+    logContainer.innerHTML = "<div class='admin-log-row'><span>실시간 감시 중...</span><span>접속 대기</span></div>";
+  } else {
+    logs.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "admin-log-row";
+      div.innerHTML = `<span>${item.time} (${item.device})</span><span style="color:#10b981;">${item.status}</span>`;
+      logContainer.appendChild(div);
+    });
+  }
+}
+// ==========================================
+// [교체 끝 - 바로 아래 줄에 function updateAuthUI() 가 이어지면 정상입니다]
+// ==========================================
 
     function updateAuthUI() {
       const loggedUser = JSON.parse(localStorage.getItem("matrix_logged_user") || "null");
