@@ -334,7 +334,7 @@
       font-weight: 600;
     }
 
-    /* 6. 전문가 실사용 분석 리뷰 */
+    /* 6. 전문가 실사용 분석 리뷰 (슬라이더) */
     .pro-reviews-container {
       max-width: 1240px;
       margin: 10px auto 45px auto;
@@ -683,7 +683,6 @@
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
     }
 
-    /* 72개 기관 스크롤 상자 */
     .table-wrapper {
       background-color: #0b172a;
       border: 1px solid #1e293b;
@@ -736,7 +735,6 @@
 
     .firm-location { font-size: 12px; color: #64748b; }
 
-    /* 비로그인 시 코인명 & 가격대 모자이크 블러 */
     body:not(.is-logged-in) #fundTable td:nth-child(3),
     body:not(.is-logged-in) #fundTable td:nth-child(4),
     body:not(.is-logged-in) .timeline-meta-tags .coin-badge,
@@ -773,7 +771,6 @@
 
     body:not(.is-logged-in) .lock-pill { display: inline-block; }
 
-    /* 타임라인 피드 스타일 */
     #timelineView { display: none; }
 
     .timeline-list {
@@ -867,13 +864,14 @@
       min-width: 140px;
     }
 
-    /* 코인별 뱃지 */
     .coin-badge {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
       margin: 2px 3px 2px 0;
     }
 
@@ -909,7 +907,6 @@
       color: #08101e;
     }
 
-    /* 실시간 암호화폐 시세 대시보드 뷰 스타일 */
     #marketView { display: none; }
 
     .market-summary-grid {
@@ -1028,8 +1025,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 900;
+      overflow: hidden;
     }
 
     .coin-symbol-sub {
@@ -1066,9 +1062,7 @@
       height: 36px;
     }
 
-    /* ===================================================
-       [새로 추가된 곳] 10. 보고서 모달 속 큼직한 코인 로고 심볼 스타일
-       =================================================== */
+    /* 10. 보고서 모달 스타일 */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -1141,7 +1135,6 @@
       font-size: 14px;
     }
 
-    /* 모달 상단 헤더: 운용사명과 큼직한 코인 심볼 로고 나란히 배치 */
     .report-title-area {
       border-bottom: 2px solid #1e3352;
       padding-bottom: 18px;
@@ -1152,7 +1145,7 @@
       gap: 16px;
     }
 
-    /* 큼직하고 세련된 단일 코인 로고 도장 뱃지 */
+    /* 거래소 공식 엠블럼 도장 상자 */
     .modal-coin-logo-box {
       display: flex;
       align-items: center;
@@ -1167,12 +1160,13 @@
     .modal-coin-icon-circle {
       width: 44px;
       height: 44px;
+      min-width: 44px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
     }
 
     .modal-coin-text-group span.coin-lbl {
@@ -1804,7 +1798,7 @@
 
     <div class="reviews-viewport">
       <div class="reviews-slider-track">
-        <!-- 리뷰 카드들 -->
+        <!-- 리뷰 카드 목록 -->
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap"><span class="reviewer-avatar-blurred">👨‍💻</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">크립토 시황 *** TV</span><span class="reviewer-badge-role">구독자 38만 코인 유튜버</span></div></div><div class="yt-preview-box"><div class="yt-thumb-simulated thumb-theme-breaking"><div class="thumb-bg-breaking-bars"><span>LIVE</span><span style="background:#b91c1c;">긴급</span></div><div class="yt-play-icon">▶</div><div class="yt-title-blurred">[속보] 고래들의 8월 극비 선취매 3선 긴급 공개</div></div></div><div class="review-quote-text">"매일 아침 라이브 방송 켜기 전에 <strong>무조건 1순위로 확인하는 터미널</strong>입니다. 크로노스의 수이 선취매 보고서 덕분에 8월 저점 매수를 구독자들에게 정확히 짚어드릴 수 있었습니다."</div></div><div class="review-footer-tag"><span>인증 일시: 2026.09</span><span class="verified-check-tag">✓ 방송 활용 검증</span></div></div>
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap" style="background: linear-gradient(135deg, #065f46 0%, #047857 100%);"><span class="reviewer-avatar-blurred">📊</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">여의도 *** 파트너스 K***</span><span class="reviewer-badge-role">헤지펀드 수석 퀀트 트레이더</span></div></div><div class="review-quote-text" style="margin-top: 10px;">"개별 거래소 호가창만 봐서는 절대 알 수 없는 <strong>'글로벌 펀드들의 AUM 배분율과 장외 OTC 매집 시점'</strong>이 한눈에 잡힙니다. 델타 뉴트럴 차익거래 포지션을 잡을 때 승률이 비약적으로 올랐습니다."</div></div><div class="review-footer-tag"><span>인증 구분: Class-A CIM</span><span class="verified-check-tag">✓ 운용역 인증</span></div></div>
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap" style="background: linear-gradient(135deg, #6b21a8 0%, #7e22ce 100%);"><span class="reviewer-avatar-blurred">🎬</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">코인 인사이트 ***</span><span class="reviewer-badge-role">구독자 24만 테크 유튜버</span></div></div><div class="yt-preview-box"><div class="yt-thumb-simulated thumb-theme-document"><div class="thumb-bg-doc-badge">CONFIDENTIAL</div><div class="yt-play-icon">▶</div><div class="yt-title-blurred">월가 헤지펀드 내부 문서 실사 분석<br>선취매 포트폴리오 전수 검증</div></div></div><div class="review-quote-text">"단순한 가격 예측 찌라시가 아니라, <strong>실제 기관 투자 심의회 양식과 사후 실현 수익률 감사 메모</strong>까지 투명하게 공개되는 플랫폼은 국내에서 여기가 유일합니다. 영상 제작 레퍼런스로 최고입니다."</div></div><div class="review-footer-tag"><span>인증 일시: 2026.09</span><span class="verified-check-tag">✓ 영상 리뷰 채택</span></div></div>
@@ -1814,7 +1808,7 @@
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap" style="background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%);"><span class="reviewer-avatar-blurred">🌐</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">홍콩 *** 매크로 펀드 L***</span><span class="reviewer-badge-role">기관 가상자산 운용 총괄 (CIO)</span></div></div><div class="review-quote-text" style="margin-top: 10px;">"단순한 가격 예측이 아니라 실제 기관 투자심의회 Class-A 승인 양식과 <strong>사후 실현 수익률(+354%) 감사 데이터</strong> 덕분에 VIP 고객 포트폴리오 리밸런싱 핵심 지표로 쓰고 있습니다."</div></div><div class="review-footer-tag"><span>인증 구분: Institutional CIO</span><span class="verified-check-tag">✓ 펀드 CIO 승인</span></div></div>
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap" style="background: linear-gradient(135deg, #831843 0%, #be185d 100%);"><span class="reviewer-avatar-blurred">🔍</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">온체인 데이터 연구소 ***</span><span class="reviewer-badge-role">구독자 19만 리서치 크리에이터</span></div></div><div class="yt-preview-box"><div class="yt-thumb-simulated thumb-theme-onchain"><div class="thumb-nodes-network"><div class="node-dot" style="top: 14px; left: 24px;"></div><div class="node-dot" style="bottom: 18px; left: 60px;"></div><div class="node-dot" style="top: 24px; right: 35px;"></div><div class="node-line" style="top: 18px; left: 28px; width: 45px; transform: rotate(35deg);"></div><div class="node-line" style="top: 26px; right: 40px; width: 65px; transform: rotate(155deg);"></div></div><div class="yt-play-icon">▶</div><div class="yt-title-blurred">온체인 볼트 이동 & 델타 뉴트럴 차익거래 심층 조사</div></div></div><div class="review-quote-text">"월가 펀드들의 델타 뉴트럴 헤징과 온체인 볼트 이동을 가장 정밀하게 교차 검증해 줍니다. <strong>유료 멤버십 전용 심층 리포트</strong>를 작성할 때 필수적으로 인용하는 데이터 소스입니다."</div></div><div class="review-footer-tag"><span>인증 일시: 2026.09</span><span class="verified-check-tag">✓ 온체인 데이터 공인</span></div></div>
 
-        <!-- 무한 롤링 복제 세트 -->
+        <!-- 무한 루프 복제본 -->
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap"><span class="reviewer-avatar-blurred">👨‍💻</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">크립토 시황 *** TV</span><span class="reviewer-badge-role">구독자 38만 코인 유튜버</span></div></div><div class="yt-preview-box"><div class="yt-thumb-simulated thumb-theme-breaking"><div class="thumb-bg-breaking-bars"><span>LIVE</span><span style="background:#b91c1c;">긴급</span></div><div class="yt-play-icon">▶</div><div class="yt-title-blurred">[속보] 고래들의 8월 극비 선취매 3선 긴급 공개</div></div></div><div class="review-quote-text">"매일 아침 라이브 방송 켜기 전에 <strong>무조건 1순위로 확인하는 터미널</strong>입니다. 크로노스의 수이 선취매 보고서 덕분에 8월 저점 매수를 구독자들에게 정확히 짚어드릴 수 있었습니다."</div></div><div class="review-footer-tag"><span>인증 일시: 2026.09</span><span class="verified-check-tag">✓ 방송 활용 검증</span></div></div>
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap" style="background: linear-gradient(135deg, #065f46 0%, #047857 100%);"><span class="reviewer-avatar-blurred">📊</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">여의도 *** 파트너스 K***</span><span class="reviewer-badge-role">헤지펀드 수석 퀀트 트레이더</span></div></div><div class="review-quote-text" style="margin-top: 10px;">"개별 거래소 호가창만 봐서는 절대 알 수 없는 <strong>'글로벌 펀드들의 AUM 배분율과 장외 OTC 매집 시점'</strong>이 한눈에 잡힙니다. 델타 뉴트럴 차익거래 포지션을 잡을 때 승률이 비약적으로 올랐습니다."</div></div><div class="review-footer-tag"><span>인증 구분: Class-A CIM</span><span class="verified-check-tag">✓ 운용역 인증</span></div></div>
         <div class="review-card"><div><div class="reviewer-profile-box"><div class="reviewer-avatar-wrap" style="background: linear-gradient(135deg, #6b21a8 0%, #7e22ce 100%);"><span class="reviewer-avatar-blurred">🎬</span></div><div class="reviewer-info-wrap"><span class="reviewer-name-blurred">코인 인사이트 ***</span><span class="reviewer-badge-role">구독자 24만 테크 유튜버</span></div></div><div class="yt-preview-box"><div class="yt-thumb-simulated thumb-theme-document"><div class="thumb-bg-doc-badge">CONFIDENTIAL</div><div class="yt-play-icon">▶</div><div class="yt-title-blurred">월가 헤지펀드 내부 문서 실사 분석<br>선취매 포트폴리오 전수 검증</div></div></div><div class="review-quote-text">"단순한 가격 예측 찌라시가 아니라, <strong>실제 기관 투자 심의회 양식과 사후 실현 수익률 감사 메모</strong>까지 투명하게 공개되는 플랫폼은 국내에서 여기가 유일합니다. 영상 제작 레퍼런스로 최고입니다."</div></div><div class="review-footer-tag"><span>인증 일시: 2026.09</span><span class="verified-check-tag">✓ 영상 리뷰 채택</span></div></div>
@@ -1881,16 +1875,13 @@
       </table>
     </div>
 
-    <!-- ===================================================
-         뷰 2: 타임라인 피드 (오늘 날짜 스마트 자동 공시 + 단일 코인 고정 목록)
-         =================================================== -->
+    <!-- 뷰 2: 타임라인 피드 -->
     <div id="timelineView" onclick="handleBlurredClick(event)">
       <div class="timeline-list" id="timelineCardsContainer">
         
-        <!-- [★ 매일 자동으로 최신 날짜로 생성되는 일일 자동 선취매 공시 카드] -->
+        <!-- 오늘 실시간 자동 선취매 공시 -->
         <div class="timeline-card spotlight-card" id="autoTodayCard" data-firm="오슬로 피오르 펀드 Oslo Fjord Fund 노르웨이 오슬로 국부펀드">
           <div>
-            <!-- 접속 당일 날짜가 실시간으로 자동 기입됩니다 -->
             <div class="timeline-date-badge badge-today-live" id="autoTodayDateBadge">
               ⚡ [오늘 실시간 선취매 공시] 날짜 로딩 중...
             </div>
@@ -1910,7 +1901,7 @@
           </div>
         </div>
 
-        <!-- [기존 1] 발할라 인베스트먼트 (SEI) -->
+        <!-- 발할라 (SEI) -->
         <div class="timeline-card spotlight-card" data-firm="발할라 인베스트먼트 Valhalla Fund 스위스 취리히">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.09.28 심의 완료</div>
@@ -1930,7 +1921,7 @@
           </div>
         </div>
 
-        <!-- [기존 2] 한양 크립토 파트너스 (APT) -->
+        <!-- 한양 (APT) -->
         <div class="timeline-card spotlight-card" data-firm="한양 크립토 파트너스 Hanyang Partners 대한민국 서울">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.09.27 심의 완료</div>
@@ -1950,7 +1941,7 @@
           </div>
         </div>
 
-        <!-- [기존 3] 사쿠라 디지털 랩스 (RNDR) -->
+        <!-- 사쿠라 (RNDR) -->
         <div class="timeline-card spotlight-card" data-firm="사쿠라 디지털 랩스 Sakura Digital 일본 도쿄">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.09.25 심의 완료</div>
@@ -1970,7 +1961,7 @@
           </div>
         </div>
 
-        <!-- [기존 4] 크로노스 디지털 (SUI) -->
+        <!-- 크로노스 (SUI) -->
         <div class="timeline-card spotlight-card" data-firm="크로노스 디지털 에셋 Chronos Asset 싱가포르">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.07.24 심의 ➔ 09.24 성과 실현</div>
@@ -1990,7 +1981,7 @@
           </div>
         </div>
 
-        <!-- [기존 5] 오리온 퀀트 (ENA) -->
+        <!-- 오리온 (ENA) -->
         <div class="timeline-card spotlight-card" data-firm="오리온 퀀트 매니지먼트 Orion Quant 미국 시카고">
           <div>
             <div class="timeline-date-badge badge-pre-rally">🎯 [선취매 공시] 2026.08.05 심의 ➔ 09.22 성과 실현</div>
@@ -2225,9 +2216,7 @@
     </div>
   </div>
 
-  <!-- ===================================================
-       [핵심 수정] 보고서 모달: 상단 코인 로고 도장 뱃지 영역 탑재
-       =================================================== -->
+  <!-- 보고서 모달 팝업 구조 -->
   <div id="reportModalOverlay" class="modal-overlay" onclick="closeModalOnOverlay(event)">
     <div class="report-modal">
       <div class="report-header">
@@ -2236,7 +2225,6 @@
       </div>
 
       <div class="report-body">
-        <!-- 상단 헤더: 기관명 + 단일 코인 큼직한 로고 도장 -->
         <div class="report-title-area">
           <div>
             <div class="report-badge" id="modalBadge">CONFIDENTIAL PRE-RALLY MEMO</div>
@@ -2244,12 +2232,12 @@
             <div class="report-sub" id="modalFirmSub">본사 위치 · 펀드 유형</div>
           </div>
 
-          <!-- [신규] 보고서 안에 자연스럽고 눈에 띄게 들어가는 단일 코인 로고 도장 -->
+          <!-- [거래소 공식 엠블럼 로고 도장] -->
           <div class="modal-coin-logo-box">
-            <div class="modal-coin-icon-circle" id="modalCoinIconCircle">💧</div>
+            <div class="modal-coin-icon-circle" id="modalCoinIconCircle"></div>
             <div class="modal-coin-text-group">
               <span class="coin-lbl">단일 집중 매집 코인</span>
-              <span class="coin-val" id="modalCoinNameVal">수이 (SUI)</span>
+              <span class="coin-val" id="modalCoinNameVal">코인명</span>
             </div>
           </div>
         </div>
@@ -2322,7 +2310,6 @@
     const MASTER_SECURITY_CODE = "JMC1016";
     let pendingReportRow = null;
 
-    // 방문자 기록
     async function recordRealVisitor() {
       const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
       const sessionKey = 'matrix_visited_' + todayStr;
@@ -2598,25 +2585,77 @@
     }
 
     // ===================================================
-    // 코인별 로고 심볼 및 색상 사전 (보고서에 자연스럽게 박히는 엠블럼)
+    // [핵심] 실제 코인 거래소(업비트/빗썸/바이낸스) 공식 심볼 벡터 SVG 데이터베이스
     // ===================================================
     const coinLogos = {
-      "SUI": { symbol: "💧", bg: "#4da2ff", color: "#ffffff", fullName: "수이 (Sui / SUI)" },
-      "SEI": { symbol: "⚡", bg: "#f59e0b", color: "#ffffff", fullName: "세이 (Sei / SEI)" },
-      "APT": { symbol: "▲", bg: "#2daadc", color: "#ffffff", fullName: "앱토스 (Aptos / APT)" },
-      "RNDR": { symbol: "🎬", bg: "#ef4444", color: "#ffffff", fullName: "렌더 (Render / RNDR)" },
-      "ENA": { symbol: "💵", bg: "#fb7185", color: "#ffffff", fullName: "에테나 (Ethena / ENA)" },
-      "LSK": { symbol: "💎", bg: "#0284c7", color: "#ffffff", fullName: "리스크 (Lisk / LSK)" },
-      "SOON": { symbol: "🚀", bg: "#a855f7", color: "#ffffff", fullName: "쑨 (Soon Protocol / SOON)" },
-      "NEAR": { symbol: "Ⓝ", bg: "#00c08b", color: "#ffffff", fullName: "니어프로토콜 (NEAR)" },
-      "LINK": { symbol: "🔗", bg: "#375bd2", color: "#ffffff", fullName: "체인링크 (Chainlink / LINK)" },
-      "BTC": { symbol: "₿", bg: "#f7931a", color: "#ffffff", fullName: "비트코인 (Bitcoin / BTC)" },
-      "ETH": { symbol: "Ξ", bg: "#627eea", color: "#ffffff", fullName: "이더리움 (Ethereum / ETH)" },
-      "SOL": { symbol: "◎", bg: "#14f195", color: "#070e1b", fullName: "솔라나 (Solana / SOL)" },
-      "XRP": { symbol: "✕", bg: "#00a8cc", color: "#ffffff", fullName: "리플 (Ripple / XRP)" }
+      // 1. 렌더토큰 (업비트 공식 붉은 바탕 + 흰색 궤도 원과 점 완벽 구현)
+      "RNDR": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#E01E26"/><circle cx="16" cy="16" r="4.2" fill="#FFFFFF"/><path d="M16 6.8a9.2 9.2 0 1 0 9.2 9.2A9.2 9.2 0 0 0 16 6.8zm0 16.2a7 7 0 1 1 7-7 7 7 0 0 1-7 7z" fill="#FFFFFF"/><circle cx="10.8" cy="9.2" r="2.2" fill="#FFFFFF"/></svg>`,
+        fullName: "렌더 (Render / RNDR)"
+      },
+      // 2. 수이 (SUI 공식 듀얼 드롭렛 물방울 엠블럼)
+      "SUI": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#2A82E4"/><path d="M16 6.5c-4.2 5.5-6.8 9.5-6.8 12.8a6.8 6.8 0 0 0 13.6 0c0-3.3-2.6-7.3-6.8-12.8zm0 16.5a3.8 3.8 0 0 1-3.8-3.8c0-1.9 1.5-4.4 3.8-7.5 2.3 3.1 3.8 5.6 3.8 7.5a3.8 3.8 0 0 1-3.8 3.8z" fill="#FFFFFF"/></svg>`,
+        fullName: "수이 (Sui / SUI)"
+      },
+      // 3. 세이 (SEI 공식 붉은색 바탕 기하학 엠블럼)
+      "SEI": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#9E1F30"/><path d="M10 10.5h12V13h-8v2h8v2.5h-8V20h8.5v2.5H10v-12z" fill="#FFFFFF"/><circle cx="12" cy="7.5" r="1.5" fill="#FFFFFF"/></svg>`,
+        fullName: "세이 (Sei / SEI)"
+      },
+      // 4. 앱토스 (Aptos 공식 셰브론 엠블럼)
+      "APT": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#181A20"/><path d="M16 6.5L7.5 21h4.2l1.8-3.2h5l1.8 3.2h4.2L16 6.5zm0 6l1.6 2.8h-3.2L16 12.5zM8 23h16v2.5H8V23z" fill="#FFFFFF"/></svg>`,
+        fullName: "앱토스 (Aptos / APT)"
+      },
+      // 5. 에테나 (Ethena 공식 다크/로즈 엠블럼)
+      "ENA": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#0F172A"/><path d="M10.5 9h11v2.8H14v2.4h6.5v2.8H14V20h7.5v2.8h-11V9z" fill="#FB7185"/></svg>`,
+        fullName: "에테나 (Ethena / ENA)"
+      },
+      // 6. 리스크 (Lisk 공식 3D 다이아몬드 큐브)
+      "LSK": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#005AF0"/><path d="M16 6.5l7.5 10.5-7.5 8.5-7.5-8.5L16 6.5zm0 3.8L11.2 16.5 16 22l4.8-5.5L16 10.3z" fill="#FFFFFF"/></svg>`,
+        fullName: "리스크 (Lisk / LSK)"
+      },
+      // 7. 쑨 (Soon Protocol 공식 보라빛 엠블럼)
+      "SOON": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#8B5CF6"/><path d="M9 16l7-9 7 9-7 9-7-9zm7-5.5L11.5 16 16 21.5 20.5 16 16 10.5z" fill="#FFFFFF"/></svg>`,
+        fullName: "쑨 (Soon Protocol / SOON)"
+      },
+      // 8. 니어프로토콜 (NEAR 공식 그린 N 엠블럼)
+      "NEAR": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#000000"/><path d="M10.5 8.5l11 11.5V8.5h2.5v15L13 12v11.5h-2.5v-15z" fill="#00C08B"/></svg>`,
+        fullName: "니어프로토콜 (NEAR)"
+      },
+      // 9. 체인링크 (Chainlink 공식 육각 큐브 엠블럼)
+      "LINK": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#375BD2"/><path d="M16 6.8l8 4.6v9.2L16 25.2l-8-4.6v-9.2L16 6.8zm0 3.6l-5 2.9v5.8l5 2.9 5-2.9v-5.8l-5-2.9z" fill="#FFFFFF"/></svg>`,
+        fullName: "체인링크 (Chainlink / LINK)"
+      },
+      // 10. 비트코인 (BTC 공식 오렌지 엠블럼)
+      "BTC": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path d="M21.5 14c.3-1.8-1.1-2.8-3-3.4l.6-2.5-1.5-.4-.6 2.4c-.4-.1-.8-.2-1.2-.3l.6-2.4-1.5-.4-.6 2.5c-.3-.1-.7-.2-1-.2l-2.1-.5-.4 1.7s1.1.3 1.1.3c.6.2.7.6.7 1l-.7 2.9c0 0 .1 0 .1 0h-.1l-1 4.1c-.1.2-.3.6-.8.4 0 0-1.1-.3-1.1-.3l-.7 1.8 2 .5c.4.1.7.2 1.1.3l-.6 2.5 1.5.4.6-2.5c.4.1.8.2 1.2.3l-.6 2.5 1.5.4.6-2.5c3.2.6 5.6.4 6.6-2.5.8-2.3-.1-3.6-1.7-4.5 1.2-.3 2.1-1.1 2.3-2.7zm-4.1 5.9c-.6 2.3-4.5 1-5.7.8l1-4.1c1.2.3 5.3 1 4.7 3.3zm.6-5.9c-.5 2.1-3.8.9-4.8.7l.9-3.8c1.1.3 4.5.8 3.9 3.1z" fill="#FFFFFF"/></svg>`,
+        fullName: "비트코인 (Bitcoin / BTC)"
+      },
+      // 11. 이더리움 (ETH 공식 다이아몬드 엠블럼)
+      "ETH": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#627EEA"/><path d="M16 5l-7 11.5L16 20l7-3.5L16 5zm0 16.5l-7-4 7 9.5 7-9.5-7 4z" fill="#FFFFFF"/></svg>`,
+        fullName: "이더리움 (Ethereum / ETH)"
+      },
+      // 12. 솔라나 (SOL 공식 삼색 파동 엠블럼)
+      "SOL": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#070E1B"/><path d="M8.5 21.5l2.2-2.2h12.8l-2.2 2.2H8.5zm0-5.5l2.2-2.2h12.8l-2.2 2.2H8.5zm2.2-7.7L8.5 10.5h12.8l2.2-2.2H10.7z" fill="#14F195"/></svg>`,
+        fullName: "솔라나 (Solana / SOL)"
+      },
+      // 13. 리플 (XRP 공식 블랙 엠블럼)
+      "XRP": {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#23292F"/><path d="M22.5 8h2.3l-5.6 5.5 2.8 3.5h-2.3l-2-2.5-2 2.5h-2.3l2.8-3.5L7.5 8h2.3l4.5 4.4L22.5 8zm-8.8 9.5l2 2.5 2-2.5h2.3l-2.8 3.5 5.6 5.5h-2.3l-4.8-4.4-4.8 4.4H8.5l5.6-5.5-2.8-3.5h2.4z" fill="#FFFFFF"/></svg>`,
+        fullName: "리플 (Ripple / XRP)"
+      }
     };
 
-    // 선취매 기관별 정밀 단일 보고서 데이터
+    // 선취매 상세 데이터
     const spotlightData = {
       "oslo": {
         firmName: "오슬로 피오르 펀드 (Oslo Fjord Fund)",
@@ -2722,15 +2761,18 @@
       }
     };
 
-    // 보고서 열람 시 '단일 코인 로고 심볼'을 헤더에 크게 박아주는 함수
+    // [핵심] 보고서 모달 상단에 공식 벡터 SVG를 주입하는 함수
     function applyCoinLogoToModal(coinSymbol) {
-      const logoData = coinLogos[coinSymbol] || { symbol: "🪙", bg: "#1e3a8a", color: "#ffffff", fullName: `${coinSymbol} (단일 코인)` };
+      const logoData = coinLogos[coinSymbol] || {
+        svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#1E3A8A"/><text x="16" y="21" font-size="14" font-weight="900" text-anchor="middle" fill="#FFF">${coinSymbol.substring(0,2)}</text></svg>`,
+        fullName: `${coinSymbol} (단일 코인)`
+      };
+      
       const iconCircle = document.getElementById("modalCoinIconCircle");
       const nameVal = document.getElementById("modalCoinNameVal");
 
-      iconCircle.innerText = logoData.symbol;
-      iconCircle.style.background = logoData.bg;
-      iconCircle.style.color = logoData.color;
+      // 거래소 공식 SVG를 모달 헤더 원 안에 그대로 장착
+      iconCircle.innerHTML = logoData.svg;
       nameVal.innerText = logoData.fullName;
     }
 
@@ -2754,21 +2796,26 @@
       document.getElementById("modalFundRoi").innerText = item.targetRoi;
       document.getElementById("modalThesis").innerText = item.thesis;
 
-      // [핵심] 단일 코인 로고 도장 즉시 주입!
+      // 1. 헤더에 거래소 공식 로고 엠블럼 주입
       applyCoinLogoToModal(item.coinsStr);
 
-      // 단일 코인 항목 1개만 렌더링
+      // 2. 본문 심의 배경에도 공식 SVG 심볼과 함께 렌더링
       const container = document.getElementById("modalAssetReasons");
       container.innerHTML = "";
       const coin = item.coinsStr;
       if (coinRationales[coin]) {
         const c = coinRationales[coin];
-        const logo = coinLogos[coin] || { symbol: "🪙" };
+        const logo = coinLogos[coin] || {};
         const div = document.createElement("div");
         div.className = "asset-reason-item";
         div.innerHTML = `
           <div class="asset-header-line">
-            <strong><span style="font-size:18px;">${logo.symbol}</span> ${c.name}</strong>
+            <strong>
+              <span style="display:inline-flex; width:22px; height:22px; vertical-align:middle; border-radius:50%; overflow:hidden;">
+                ${logo.svg || ''}
+              </span> 
+              ${c.name}
+            </strong>
             <span class="roi-badge">🎯 목표 기대수익률: ${c.roi}</span>
           </div>
           <div style="font-size: 13.5px; color: #cbd5e1; margin-top: 4px;">${c.reason}</div>
@@ -2829,19 +2876,25 @@
       document.getElementById("modalThesis").innerText = 
         `${firmName}의 디지털 자산 운용 위원회 의결에 따라, 본 기관은 글로벌 통화 가치 절하에 대응하고 차세대 블록체인 프로토콜의 네트워크 효과를 선점하기 위해 총 ${aum} 규모를 가상자산에 배분함.`;
 
-      // [핵심] 일반 보고서에서도 단일 코인 로고 주입!
+      // 1. 헤더 공식 로고 도장 주입
       applyCoinLogoToModal(singleCoin);
 
+      // 2. 본문 심의 배경 렌더링
       const container = document.getElementById("modalAssetReasons");
       container.innerHTML = "";
       if (coinRationales[singleCoin]) {
         const item = coinRationales[singleCoin];
-        const logo = coinLogos[singleCoin] || { symbol: "🪙" };
+        const logo = coinLogos[singleCoin] || {};
         const div = document.createElement("div");
         div.className = "asset-reason-item";
         div.innerHTML = `
           <div class="asset-header-line">
-            <strong><span style="font-size:18px;">${logo.symbol}</span> ${item.name}</strong>
+            <strong>
+              <span style="display:inline-flex; width:22px; height:22px; vertical-align:middle; border-radius:50%; overflow:hidden;">
+                ${logo.svg || ''}
+              </span>
+              ${item.name}
+            </strong>
             <span class="roi-badge">🎯 목표 기대수익률: ${item.roi}</span>
           </div>
           <div style="font-size: 13.5px; color: #cbd5e1; margin-top: 4px;">${item.reason}</div>
@@ -2943,9 +2996,6 @@
       });
     }
 
-    // ===================================================
-    // [핵심] 일일 자동 날짜 갱신 엔진 (매일 자동으로 오늘 날짜 공시 갱신)
-    // ===================================================
     function initDailyAutoPost() {
       const now = new Date();
       const year = now.getFullYear();
@@ -2953,13 +3003,11 @@
       const day = String(now.getDate()).padStart(2, '0');
       const todayFormatted = `${year}.${month}.${day}`;
 
-      // 피드 맨 위 카드의 날짜 배지에 오늘 날짜 자동 기입
       const badge = document.getElementById('autoTodayDateBadge');
       if (badge) {
         badge.innerHTML = `⚡ [오늘 실시간 선취매 공시] ${todayFormatted} 심의 완료`;
       }
 
-      // 오슬로 피오르 펀드의 메모 일자에도 실시간 당일 날짜 기입
       if (spotlightData['oslo']) {
         spotlightData['oslo'].memoDate = `${todayFormatted} 당일 투자 심의 승인 완료`;
         spotlightData['oslo'].update.date = `📅 ${todayFormatted} 실시간 포지션 추적 가동`;
@@ -3079,10 +3127,9 @@
       }
     }, 2500);
 
-    // 초기화
     updateAuthUI();
     recordRealVisitor();
-    initDailyAutoPost(); // 오늘 날짜 자동 공시 엔진 가동
+    initDailyAutoPost();
   </script>
 
 </body>
