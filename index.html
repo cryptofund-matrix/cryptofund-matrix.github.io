@@ -2409,6 +2409,13 @@
        =================================================== -->
   <script>
     const MASTER_SECURITY_CODE = "KSA9926";
+    // --- [보안 패치: 기존 가입자 및 로그인 세션 강제 전체 초기화] ---
+  const AUTH_SYSTEM_VERSION = "v2_ksa9926";
+  if (localStorage.getItem("matrix_auth_version") !== AUTH_SYSTEM_VERSION) {
+    localStorage.removeItem("matrix_users");       // 기존 모든 가입 계정 목록 파기
+    localStorage.removeItem("matrix_logged_user"); // 기존 로그인 세션 즉시 해제
+    localStorage.setItem("matrix_auth_version", AUTH_SYSTEM_VERSION);
+  }
     let pendingReportRow = null;
 
    // ==========================================
