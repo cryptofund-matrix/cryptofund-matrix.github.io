@@ -1969,6 +1969,35 @@
             <button class="btn-report" onclick="openSpotlightReport('oslo')">보고서 열람</button>
           </div>
         </div>
+        <!-- 🔥 [HOT 1위] 피닉스 글로벌 (디라이브 DLIVE) -->
+        <div class="timeline-card spotlight-card" style="border-left-color: #f97316; background: radial-gradient(circle at 10% 50%, #2a1506 0%, #0b172a 80%);" data-firm="피닉스 글로벌 캐피탈 Phoenix Global 미국 뉴욕 디라이브 DLIVE">
+          <div>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px;">
+              <div class="timeline-date-badge" style="background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.4);">
+                🎯 [선취매 공시] 2026.09.14 심의 ➔ 09.19 성과 실현
+              </div>
+              <span style="background: linear-gradient(135deg, #ef4444 0%, #f97316 100%); color: #ffffff; font-size: 11px; font-weight: 900; padding: 3px 9px; border-radius: 4px; box-shadow: 0 0 12px rgba(239, 68, 68, 0.45); display: inline-flex; align-items: center; gap: 4px;">
+                🔥 HOT · 이번 주 최다 조회 1위
+              </span>
+            </div>
+            <div class="timeline-firm-title">피닉스 글로벌 캐피탈 (Phoenix Global)</div>
+            <div class="timeline-action-desc">
+              <strong>[<span class="blur-target">디라이브(DLIVE)</span> Web3 스트리밍 인프라 저점 매집 및 사후 감사 보고서]</strong><br>
+              기관 전용 볼트를 통해 <span class="blur-target">디라이브 184원</span> 극초기 바닥 구간에서 $48M(약 650억 원) 대량 선취매 완료. (초기 목표 기대수익률: +500% ~ +850%)<br>
+              <div style="margin-top: 6px; padding: 6px 10px; background: rgba(16, 185, 129, 0.12); border-left: 3px solid #10b981; border-radius: 4px; color: #a7f3d0; font-size: 13px;">
+                ⚡ <strong>[9월 19일 성과 실현 결과]</strong> 랠리 분출 후 <strong>1,600원</strong>에 전량 분할 매도 완료 (<strong>실제 실현 수익률 +769.6% 확정</strong>)
+              </div>
+            </div>
+            <div class="timeline-meta-tags">
+              <span class="coin-badge" style="background: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.35);">DLIVE</span>
+              <span class="roi-badge" style="background: rgba(16, 185, 129, 0.25); color: #34d399; font-weight: 900;">💰 실현 수익률: +769.6% 달성</span>
+            </div>
+          </div>
+          <div class="timeline-btn-area">
+            <span style="color:#64748b; font-size:12px;">선취매 규모: <strong>$48M</strong></span>
+            <button class="btn-report" style="border-color: #f97316; color: #fb923c;" onclick="openSpotlightReport('dlive')">보고서 열람</button>
+          </div>
+        </div>
 
         <!-- 발할라 (세이 SEI) -->
         <div class="timeline-card spotlight-card" data-firm="발할라 인베스트먼트 Valhalla Fund 스위스 취리히">
@@ -2734,6 +2763,7 @@ async function refreshAdminStats() {
 
     // 업비트 공식 로고 SVG 사전 (에테나, 렌더 포함 100% 동일)
     const coinLogos = {
+      "DLIVE": { svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#EA580C"/><polygon points="12,9 23,16 12,23" fill="#FFFFFF"/></svg>`, fullName: "디라이브 (DLive / DLIVE)" },
       "ENA": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#1C1D22"/><path d="M21.2 9.5H15.4L9.6 16l5.8 6.5h5.8v-2.6H17l-3.5-3.9 3.5-3.9h4.2V9.5z" fill="#FFFFFF"/></svg>`,
         fullName: "에테나 (Ethena / ENA)"
@@ -2789,6 +2819,23 @@ async function refreshAdminStats() {
     };
 
     const spotlightData = {
+      "dlive": {
+      firmName: "피닉스 글로벌 캐피탈 (Phoenix Global)",
+      firmLocation: "미국 뉴욕 · 헤지펀드",
+      aum: "$3.7B",
+      weight: "DLIVE 100% (단일 집중 매집)",
+      coinsStr: "DLIVE",
+      memoDate: "2026년 09월 14일 (디라이브 대규모 랠리 전 바닥 선취매)",
+      targetRoi: "+500% ~ +850% (초기 기대수익률)",
+      thesis: "차세대 탈중앙화 Web3 스트리밍 프로토콜 디라이브(DLIVE)의 글로벌 거대 미디어 그룹 제휴 및 토큰 이코노미 소각 모델 발표 직전, 184원 최저점 박스권에서 $48M(약 650억 원) 규모를 기관 전용 OTC 볼트를 통해 전격 단일 매집 완료함.",
+      update: {
+        date: "📅 2026.09.19 사후 감사 및 실현 공시",
+        entry: "184원 (바닥 대량 매집)",
+        exit: "1,600원 (고점 전량 매도)",
+        roi: "+769.6% 실현 완료",
+        desc: "9월 14일 매집 완료 후 글로벌 거래소 유동성 유입과 함께 5일 만에 1,600원까지 수직 상승함. 9월 19일 목표가를 조기 돌파함에 따라 1,600원에서 전량 분할 매도를 집행하여 +769.6% 확정 수익 실현을 완료함."
+      }
+    },
       "oslo": {
         firmName: "오슬로 피오르 펀드 (Oslo Fjord Fund)",
         firmLocation: "노르웨이 오슬로 · 대체자산 국부펀드",
@@ -2966,6 +3013,7 @@ async function refreshAdminStats() {
     }
 
     const coinRationales = {
+      "DLIVE": { name: "디라이브 (DLive)", roi: "+500% ~ +850%", reason: "[Web3 미디어 생태계 독점 선취매] 글로벌 대형 미디어 독점 파트너십 및 유통량 대규모 소각 공시 직전 184원 바닥 장외(OTC) 집중 매집 완료." },
       "LINK": { name: "체인링크 (Chainlink)", roi: "+170% ~ +310%", reason: "[실물자산 RWA 표준 독점 선취매] 유럽 주요 상업은행의 온체인 채권 발행 및 CCIP 상호운용성 표준 독점에 앞선 $11대 바닥 매집 완료." },
       "SEI": { name: "세이 (Sei)", roi: "+180% ~ +320%", reason: "[병렬 EVM 가동 전 선취매] 초고속 병렬 EVM v2 업그레이드 및 아시아 주요 거래소 DEX 유동성 유입에 주목한 $0.30대 바닥 매집." },
       "APT": { name: "앱토스 (Aptos)", roi: "+160% ~ +290%", reason: "[모바일 결제망 제휴 전 선취매] 글로벌 핀테크 대기업의 Move 기반 온체인 결제 솔루션 공식 발표 전 장외(OTC) 분할 매집." },
