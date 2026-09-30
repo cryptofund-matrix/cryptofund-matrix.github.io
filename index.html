@@ -2763,7 +2763,25 @@ async function refreshAdminStats() {
 
     // 업비트 공식 로고 SVG 사전 (에테나, 렌더 포함 100% 동일)
     const coinLogos = {
-      "DLIVE": { svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#EA580C"/><polygon points="12,9 23,16 12,23" fill="#FFFFFF"/></svg>`, fullName: "디라이브 (DLive / DLIVE)" },
+      "DLIVE": { 
+      svg: `<svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="drvGrad" x1="20%" y1="10%" x2="80%" y2="90%">
+            <stop offset="0%" stop-color="#ff3b53"/>
+            <stop offset="45%" stop-color="#ff6a2a"/>
+            <stop offset="100%" stop-color="#fca311"/>
+          </linearGradient>
+        </defs>
+        <circle cx="50" cy="50" r="50" fill="#080808"/>
+        <!-- 하단 대각 바 -->
+        <path d="M 33 32 L 20 52 C 18 55 18 59 20 62 L 32 75 C 34 77 37 77 40 77 L 60 77 C 62 77 64 75 62 73 L 42 41 C 41 39 39 38 37 38 L 34 32 Z" fill="url(#drvGrad)"/>
+        <!-- 상단 말 머리 -->
+        <path d="M 58 17 C 55 21 52 23 44 23 C 38 23 35 25 35 28 L 52 54 C 54 55 57 55 60 54 C 63 54 65 59 68 64 L 83 64 C 84 64 85 62 84 60 L 82 54 C 82 52 83 50 84 48 L 58 17 Z" fill="url(#drvGrad)"/>
+        <!-- 말 눈동자 음영 -->
+        <path d="M 57 32 C 60 34 65 39 67 40 C 65 40 62 38 59 35 C 57 34 56 33 57 32 Z" fill="#080808"/>
+      </svg>`, 
+      fullName: "디라이브 (Derive / DRV)" 
+    },
       "ENA": {
         svg: `<svg viewBox="0 0 32 32" width="100%" height="100%" fill="none"><circle cx="16" cy="16" r="16" fill="#1C1D22"/><path d="M21.2 9.5H15.4L9.6 16l5.8 6.5h5.8v-2.6H17l-3.5-3.9 3.5-3.9h4.2V9.5z" fill="#FFFFFF"/></svg>`,
         fullName: "에테나 (Ethena / ENA)"
