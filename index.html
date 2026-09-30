@@ -1979,11 +1979,16 @@
               <span style="background: linear-gradient(135deg, #ef4444 0%, #f97316 100%); color: #ffffff; font-size: 11px; font-weight: 900; padding: 3px 9px; border-radius: 4px; box-shadow: 0 0 12px rgba(239, 68, 68, 0.45); display: inline-flex; align-items: center; gap: 4px;">
                 🔥 HOT · 이번 주 최다 조회 1위
               </span>
+              <!-- 🔓 비회원 무료 공개 배지 -->
+              <span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px;">
+                🔓 비회원 무료 열람 가능
+              </span>
             </div>
             <div class="timeline-firm-title">피닉스 글로벌 캐피탈 (Phoenix Global)</div>
             <div class="timeline-action-desc">
-              <strong>[<span class="blur-target">디라이브(DLIVE)</span> Web3 스트리밍 인프라 저점 매집 및 사후 감사 보고서]</strong><br>
-              기관 전용 볼트를 통해 <span class="blur-target">디라이브 184원</span> 극초기 바닥 구간에서 $48M(약 650억 원) 대량 선취매 완료. (초기 목표 기대수익률: +500% ~ +850%)<br>
+              <!-- blur-target 클래스 제거 완료 -->
+              <strong>[디라이브(DLIVE) Web3 스트리밍 인프라 저점 매집 및 사후 감사 보고서]</strong><br>
+              기관 전용 볼트를 통해 <strong>디라이브 184원</strong> 극초기 바닥 구간에서 $48M(약 650억 원) 대량 선취매 완료. (초기 목표 기대수익률: +500% ~ +850%)<br>
               <div style="margin-top: 6px; padding: 6px 10px; background: rgba(16, 185, 129, 0.12); border-left: 3px solid #10b981; border-radius: 4px; color: #a7f3d0; font-size: 13px;">
                 ⚡ <strong>[9월 19일 성과 실현 결과]</strong> 랠리 분출 후 <strong>1,600원</strong>에 전량 분할 매도 완료 (<strong>실제 실현 수익률 +769.6% 확정</strong>)
               </div>
@@ -2973,7 +2978,7 @@ async function refreshAdminStats() {
 
     function openSpotlightReport(spotlightKey) {
       const loggedUser = JSON.parse(localStorage.getItem("matrix_logged_user") || "null");
-      if (!loggedUser) {
+      if (!loggedUser && spotlightKey !== 'dlive') {
         openAuthModal('report');
         return;
       }
